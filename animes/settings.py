@@ -27,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-1+i)d+6ef-i^d&nsgn0vf$=(zv%74!jv&#_a@fvjim1#fmhb!%'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['hamza-animes.herokuapp.com']
 
@@ -87,13 +87,13 @@ WSGI_APPLICATION = 'animes.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -135,7 +135,7 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 
 STATICFILES_DIRS = [
-    BASE_DIR / 'animes/static'
+    BASE_DIR / 'staticfiles'
 ]
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -143,6 +143,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
+
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

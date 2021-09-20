@@ -409,7 +409,7 @@ def search(request):
             sr = request.GET['s']
             search = 'show'
             title = f'نتائج البحث عن [ {sr} ]'
-            animes = animes.filter(name__contains=sr)
+            animes = animes.filter(name__icontains=sr)
             sr = sr.replace(' ', '+')
             
  

@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from datetime import timedelta
 import os
 from pathlib import Path
+import dj_database_url
+import django_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,7 +29,7 @@ SECRET_KEY = 'django-insecure-1+i)d+6ef-i^d&nsgn0vf$=(zv%74!jv&#_a@fvjim1#fmhb!%
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'hamza-animes.herokuapp.com']
+ALLOWED_HOSTS = ['hamza-animes.herokuapp.com']
 
 
 # Application definition
@@ -91,7 +93,7 @@ DATABASES = {
         'NAME': 'animes',
         'USER': 'postgres',
         'PASSWORD': 'admin',
-        'HOST':'localhost',
+        'HOST': 'localhost',
         'PORT': '5432'
     }
 }
@@ -145,6 +147,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
+
+django_heroku.settings(locals())
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 

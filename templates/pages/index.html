@@ -1,0 +1,211 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+<body class="fixed-sn light-blue-skin">
+
+
+  
+
+
+
+
+{% if temp == 'index' %}
+
+<div class="content page-content-container">
+    <div class="container">
+        <div class="main-widget">
+            <div class="main-didget-head">
+                <h2 class="box-title"><span class="fwo"> آخر </span> الحلقات المضافة</h2>                
+            </div>
+            <div class="main-widget-body">
+                <div class="episodes-list-content">
+                    <div class="row display-flex">
+<!-- start card  -->  
+
+{% for episode in episodes  %}
+
+<div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 col-no-padding col-mobile-no-padding">
+  <div class="episodes-card-container">
+    <div class="episodes-card">
+      <div id="main" class="hover ">
+        <img class="img-responsive " src="{{episode.name.image_episode.url}}"
+          alt="اوتاكو otaku uramichi-oniisan-10-الحلقة" />
+        <a href="{% url 'watch' slug=episode.name.number_episodes eps_num=episode.episode %}" class="overlay"></a>
+            <div class="play-button">
+            <span >
+                <a href="{% url 'watch' slug=episode.name.number_episodes eps_num=episode.episode %}" class="overlay"><i
+                    class="fa fa-play"></i></a></span>
+                           
+                        </div>
+      </div>
+          </div>
+    <div class="ep-card-anime-title">
+      <h3><a href="{% url 'watch' slug=episode.name.number_episodes eps_num=episode.episode %}">{{episode.name.episode_date}}</a></h3>
+            <h4><a style="color:#969696;" href="{% url 'watch' slug=episode.name.number_episodes eps_num=episode.episode %}"> 
+            {% if episode.name.anime_type.name == 'تلفزيون' %}
+                الحلقة
+            {% else %}
+            {{episode.name.anime_type.name}}
+            {% endif %}
+            
+          {{episode.episode}}</a></h4>
+          </div>
+  </div>
+</div> 
+
+{% endfor %}
+
+ 
+<!-- end card  -->                                                      
+</div>   
+</div>                               
+                    </div>
+                    <div class="show-more-item" id="episodes_pagination">
+                        <a class="next_page" data-remote="true" href="{% url 'episode' %}">اظهر المزيد</a>
+                    </div>                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- END LATEST EPISODES -->    <!-- PIN ANIME -->
+<div class="content page-content-container">
+    <div class="container">
+        <div class="main-widget">
+            <div class="main-didget-head">
+                <h2 class="box-title"><span class="fwo"> آخر </span> الأنميات المضافة</h2>                
+            </div>
+            <div class="main-widget-body">
+                <div class="anime-list-content">
+
+<!--  start card -->
+
+{% for anime in animes_search|slice:':24'  %}
+
+ <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 col-no-padding col-mobile-no-padding">
+<div class="anime-card-container">
+    <div class="anime-card-poster">
+            <div class="hover ">
+                <img class="img-responsive"   
+                    src="{{anime.image_anime.url}}"
+                    alt="{{anime.episode_date}}" />
+                <a href="{% url 'anime' slug=anime.url_anime %}" class="overlay"></a>
+               <div class="play-button-extra">
+                <span ><a href="{% url 'anime' slug=anime.url_anime %}" class="overlay"></a></span>
+               
+                </div>
+            </div>
+            <div class="anime-card-status"><a
+                    href="" class='font-important' style='font-size: 10px;'>{{anime.anime_state.name}}</a></div>     
+    </div>
+    <div class="anime-card-details">
+        
+        <div class="anime-card-title" title="{{anime.title}}" data-toggle="popover" data-trigger="hover"
+            >
+            <h3><a href="{% url 'anime' slug=anime.url_anime %}">{{anime.title}}</a></h3>
+            <h4><a a style="color:#969696;" href="{% url 'anime' slug=anime.url_anime %}">{{anime.anime_date.name}}</a></h4>
+
+        </div>
+    </div>
+</div>                    
+</div>  
+
+
+{% endfor %}
+
+
+<!--  end card -->
+<div class="show-more-item" id="episodes_pagination">
+    <a class="next_page" data-remote="true" href="{% url 'list_anime' %}">اظهر المزيد</a>
+</div>                      
+                                                  
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% elif temp == 'days_anime' %}
+
+<div class="main-section ">
+        <div class="container">
+            <h3 class="font-important">مواعيد عرض حلقات الانمي</h3>
+        </div>
+</div>
+
+<div class="content page-content-container">
+       
+
+
+
+
+
+{% for i in days %}
+    
+    {% if i.animes|length > 0 %}
+     <div class="container">
+        <div class="main-widget">
+         <div class="main-didget-head">
+                <h2 class="box-title"><span class="fwo"> أنميات </span> {{i.name}}</h2>                
+            </div>
+            <div class="main-widget-body">
+                <div class="anime-list-content">
+
+        {% for anime in i.animes  %}
+
+            <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 col-no-padding col-mobile-no-padding">
+            <div class="anime-card-container">
+                <div class="anime-card-poster">
+                        <div class="hover ">
+                            <img class="img-responsive"   
+                                src="{{anime.image_anime.url}}"
+                                alt="{{anime.title}}" />
+                            <a href="{% url 'anime' slug=anime.url %}" class="overlay"></a>
+                        <div class="play-button-extra">
+                            <span ><a href="{% url 'anime' slug=anime.url %}" class="overlay"></a></span>
+                        
+                            </div>
+                        </div>
+                        <div class="anime-card-status"><a
+                                href="{% url 'anime' slug=anime.url %}" class='font-important' style='font-size: 10px;'>{{anime.anime_state.name}}</a></div>     
+                </div>
+                <div class="anime-card-details">
+                    
+                    <div class="anime-card-title" title="{{anime.title}}" data-toggle="popover" data-trigger="hover"
+                        >
+                        <h3><a href="{% url 'anime' slug=anime.url %}">{{anime.title}}</a></h3>
+                        <h4><a a style="color:#969696;" href="{% url 'anime' slug=anime.url %}">
+                        {{anime.anime_date.name}}
+                        </a></h4>
+
+                    </div>
+                </div>
+            </div>                    
+            </div>  
+
+
+        {% endfor %}
+
+        </div>
+            </div>
+        </div>
+    </div>
+
+    {% endif %}
+
+                    
+{% endfor %}
+
+</div>
+{% endif %}
+
+
+  
+</body>
+    
+
+
+
+{% endblock content %}

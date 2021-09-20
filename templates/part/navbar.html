@@ -1,0 +1,50 @@
+{% load static %}
+<header class="head">
+    <input type="checkbox" id="checkbox-lbl-bars" >
+    <nav>
+        <img src="{% static 'img/logo.png' %}" alt="" class="logo">
+    </nav>
+
+    <nav class="navbar-edited" id='nav-ou'>
+        
+        <label for="checkbox-lbl-bars"  class="lbl-bars"><i class="fas fa-bars bars"></i></label>
+        <label for="" class="lbl-search" id="label-search-navbar"><i class="fas fa-search" id="icon-search-navbar"></i></label>
+        <ul class="ul" id='ul-nav'>
+            
+            <li>
+                <a href="{% url 'index' %}">الرئيسية</a>
+            </li>
+
+            <li>
+                <a href="{% url 'list_anime' %}">قائمة الأنمي</a>
+            </li>
+
+            <li>
+                <a href="{% url 'ht' name='anime-type' slug='فيلم' %}">أفلام الأنمي</a>
+            </li>
+
+            <li>
+                <a href="{% url 'days_anime' %}">مواعيد الحلقات</a>
+            </li>
+        </ul>
+
+        <div class="search-navbar-edit ds-none-2" id="search-navbar">
+            <div class="search-box">
+                <form action="{% url 'search' %}" method='GET'>
+                    <button type="submit" class="btn-search-edit"><i class="fa fa-search" aria-hidden="true"></i></button>
+                    <input type="text" name="s" placeholder="بحث" class="form-control search-input"
+                           id='search-input-navbar' 
+                           value="">
+
+                   
+
+
+                    </form>
+            </div>
+            
+        </div>
+    </nav>
+    <nav class="nav-mes">
+        <p></p>
+    </nav>
+</header>

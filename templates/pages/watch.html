@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+  <section>
+            <div class="body">
+                <!--  start  section div -->
+                <div class="section">
+                    <!--  start  vdo -->
+                    <div class="vdo">
+                        <!--  start  video -->
+                        <div class="video">
+                            {% if episode.type_html == 'iframe' %}
+                                <iframe class='vd' src="{{episode.url}}" frameborder="0" 
+                            allowfullscreen="" data-ioarzrhplp-handled="1"></iframe>
+
+                            {% elif episode.type_html == 'video' %}
+                             <video
+                                controls
+                                class="vd"
+                            >
+                                <source
+                                src="{% if episode.type_episode == 'video' %}{{episode.video.url}} {% elif episode.type_episode == 'url' %}{{episode.url}}{% endif %}"
+                                type="video/mp4"
+                                />
+
+                                
+                                
+                            </video>
+                            {% endif %}
+                            <footer class="ft-video">
+                                <div>
+                                    {% if prv_hide != 'hide' %}
+                                        
+                                            <i class="fa fa-forward"></i> 
+                                            <a href="{% url 'watch' slug=prv_hide.name.name eps_num=prv_hide.episode %}">الحلقة السابقة</a>
+                                        
+                                    {% endif %}
+                                </div>
+                                <div>
+                                    {% if next_hide != 'hide' %}
+                                        <a href="{% url 'watch' slug=next_hide.name.name eps_num=next_hide.episode %}">الحلقة التالية</a>
+                                        <i class="fa fa-backward"></i> 
+                                    {% endif %}
+                                    
+                                </div>
+
+                            </footer>
+                        </div>
+                        <!--  end  video -->
+                        <!--  start  video auth -->
+
+                            <div class="vd-auth">
+                                
+                                
+                                <ul class="nav nav-pills " >
+                                    <li class="active"><a data-toggle="pill" href="#episodes" ><i class="fa fa-list" ></i><span class="es-title">حلقات</span></a></li> 
+                                </ul>  
+                                <div id="episodes" class="">  
+                                    <div class="search-in-episodes-list">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" id="inputEpisode" onkeyup="" placeholder="البحث عن حلقة"  />
+                                        </div>
+                                    </div>              
+                                    <ul class="all-episodes-list scroll-episodes-list" id="ULEpisodesList">
+
+                                        {% for i in episodes %}
+
+                                            <li>
+                                                <a href="{% url 'watch' slug=i.url_anime eps_num=i.episode %}">الحلقة
+                                                <span class="num-es">{{i.episode}}</span>
+                                                </a>
+                                            </li>
+
+                                        {% endfor %}
+                                    
+                                        
+
+                                        
+
+                                        
+
+                                    
+                                    </ul> 
+                                </div> 
+                                
+                                    
+                                
+                            </div>
+
+                        <!--  end  video auth -->
+                    </div>
+                    <!--  end  vdo -->
+
+                    <div class="row desk">
+                        <div class=" col-md-12 col-sm-12 col-no-padding-left">            
+                            <div class="anime-container-data">
+                                    
+                                <h1 style="font-size:20px;" class="anime-details-title"><a style="color:#999;" href="https://otaku.me/anime/one-piece/">انمي {{episode.name.name}} الحلقة {{episode.episode}} مترجمة اون لاين   </a></h1>
+                               
+                                <p class="anime-story borderd-box2"  style="padding-right:10px; padding-left:10px;"><b>القصة : </b>{{episode.name.story}} </p>
+                             </div>
+                        </div>                  
+                    </div>
+
+{% endblock content %}
+      
+                    
+                
+ {% block script %}
+ <script src="{% static 'js/watch.js' %}"></script>
+ {% endblock script %}               
+

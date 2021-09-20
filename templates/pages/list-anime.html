@@ -1,0 +1,289 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+
+    
+    <div class="main-section ">
+        <div class="container">
+            <h3 class="font-important">{{title}}</h3>
+        </div>
+    </div>
+    <!-- END MAIN SECTION -->    <!-- FILTER SECTION -->
+
+{% if ul_hide != 'hide' %}
+
+<div class="second-section">
+    <div class="container">
+        <div class="anime-filter-options">
+            <ul>
+                <li>
+                    <div class="dropdown">
+                        <button class="btn btn-default dropdown-toggle" type="button" id="genresDropdown"
+                                data-toggle="dropdown" aria-expanded="true" >
+                            تصنيف الأنمي <span class="caret"></span>
+                        </button>
+                        
+                            <ul class="dropdown-menu scrollable-menu" id="drop1" role="menu" aria-labelledby="genresDropdown">
+                                    {% for class in anime_class  %}
+                                        <li role="presentation">
+                                            <a href="{% url 'ht' name='anime-genre' slug=class.url_anime%}">{{class.name}}</a>
+                                        </li>
+                                    {% endfor %}
+                                    
+                                                                
+                            </ul>
+                        
+                    </div>
+                </li>
+                <li>
+                    <div class="dropdown">
+                        <button class="btn btn-default dropdown-toggle" type="button" id="statusDropdown"
+                                data-toggle="dropdown" aria-expanded="true" >
+                            حالة الأنمي <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu scrollable-menu" id="drop2" role="menu" aria-labelledby="statusDropdown">
+
+                                {% for state in anime_state  %}
+                                    <li role="presentation">
+                                    <a href="{% url 'ht' name='anime-state' slug=state.url_anime %}">{{state}}</a>
+                                </li>
+                                {% endfor %}
+                                
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <div class="dropdown">
+                        <button class="btn btn-default dropdown-toggle" type="button" id="typeDropdown"
+                                data-toggle="dropdown" aria-expanded="true" >
+                            النوع <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu scrollable-menu" id="drop3" role="menu" aria-labelledby="typeDropdown">
+
+                            {% for type in anime_type  %}
+                            <li role="presentation">
+                                    <a href="{% url 'ht' name='anime-type' slug=type.url_anime %}">{{type}}</a>
+                                </li>
+                            {% endfor %}
+                                                            
+                                            
+                                                    </ul>
+                    </div>
+                </li>
+
+                
+                    
+                <li>
+                    <div class="dropdown" >
+                        <button class="btn btn-default dropdown-toggle" type="button" id="seasonsDropdown"
+                                data-toggle="dropdown" aria-expanded="true">
+                            الموسم <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu scrollable-menu" role="menu" id="drop4" aria-labelledby="seasonsDropdown">
+
+                                {% for date in anime_date  %}
+                                    <li>
+                                        <a href="{% url 'ht' name='anime-season' slug=date.url_anime%}">{{date}}</a>
+                                    </li>
+                                {% endfor %}
+                                                           
+                                                            
+                         </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+{% endif %}
+
+<!-- END FILTER SECTION -->    <div class="space"></div>
+    <div class="container">
+        <div class="anime-list-content">
+                            <div class="row display-flex">
+
+<!-- start card  -->
+
+{% for i in animes  %}
+
+<div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 col-no-padding col-mobile-no-padding">
+     <div class="anime-card-container">
+         <div class="anime-card-poster">
+            <div class="hover ">
+                <img class="img-responsive"   
+                     src="{{i.image_anime.url}}"
+                     alt="{{i.title}}" />
+                <a href="{% url 'anime' slug=i.url_anime %}" class="overlay"></a>
+                 <div class="play-button-extra">
+                                                    <span ><a href="{% url 'anime' slug=i.url_anime %}" class="overlay"></a></span>
+                                                   
+                                                    </div>
+                                                </div>
+                                                <div class="anime-card-status "><a class='font-important'
+                                                   style='font-size:11px'  href="{% url 'anime' slug=i.url_anime %}">{{i.anime_state.name}}</a>
+                                                </div>     
+                                        </div>
+                                        <div class="anime-card-details">
+                                            
+                                            <div class="anime-card-title" title="{{i.title}}" data-toggle="popover" data-trigger="hover"
+                                                >
+                                                <h3 ><a href="{% url 'anime' slug=i.url_anime %}" >{{i.title}}</a></h3>
+                                                <h4><a a style="color:#969696;" href="{% url 'anime' slug=i.url_anime %}">{{i.anime_date.name}}</a></h4>
+                                    
+            </div>
+        </div>
+    </div>                    
+</div>  
+
+{% endfor %}
+<div class="content page-content-container">
+    <div class="container">
+        <div class="main-widget">
+            
+            <div class="main-widget-body">
+                <div class="episodes-list-content">
+                    <div class="row display-flex">
+
+
+{% for episode in episodes  %}
+
+<div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 col-no-padding col-mobile-no-padding">
+  <div class="episodes-card-container">
+    <div class="episodes-card">
+      <div id="main" class="hover ">
+        <img class="img-responsive " src="{{episode.name.image_episode.url}}"
+          alt="اوتاكو otaku uramichi-oniisan-10-الحلقة" />
+        <a href="{% url 'watch' slug=episode.name.number_episodes eps_num=episode.episode %}" class="overlay"></a>
+            <div class="play-button">
+            <span >
+                <a href="{% url 'watch' slug=episode.name.number_episodes eps_num=episode.episode %}" class="overlay"><i
+                    class="fa fa-play"></i></a></span>
+                           
+                        </div>
+      </div>
+          </div>
+    <div class="ep-card-anime-title">
+      <h3><a href="{% url 'watch' slug=episode.name.number_episodes eps_num=episode.episode %}">{{episode.name.episode_date}}</a></h3>
+            <h4><a style="color:#969696;" href="{% url 'watch' slug=episode.name.number_episodes eps_num=episode.episode %}"> 
+            {% if episode.name.anime_type.name == 'تلفزيون' %}
+                الحلقة
+            {% else %}
+            {{episode.name.anime_type.name}}
+            {% endif %}
+            
+          {{episode.episode}}</a></h4>
+          </div>
+  </div>
+</div> 
+
+{% endfor %}
+
+ 
+                                                     
+</div>   
+</div>                               
+ </div>
+            <nav>
+                {% if m > 1 %}
+                
+                    <ul class="pagination">
+
+                                <li class="page-item {{previos}}">
+                                    <a class="page-link" 
+                                        {% if previos != 'disabled' %}
+                                            href="?{% if search == 'show' %}s={{search_text}}&{% endif %}page={{prv}}"
+                                        {% endif %}
+                                    >&laquo;&nbsp;السابق</a>
+                                </li>
+
+                                {% if mi == 'true' %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="?{% if search == 'show' %}s={{search_text}}&{% endif %}page=1">1</a>
+                                    </li>
+
+
+                                    <li class="page-item">
+                                        <a class="page-link" >...</a>
+                                    </li>
+                                {% endif %}
+
+                        {% if prv2 != 'no' %}
+
+                            <li class="page-item ">
+                                <a class="page-link" href="?{% if search == 'show' %}s={{search_text}}&{% endif %}page={{prv2}}">{{prv2}}</a>
+                            </li>
+
+                        {% endif %}
+
+                        {% if previos != 'disabled' %}
+
+                            <li class="page-item ">
+                                <a class="page-link" href="?{% if search == 'show' %}s={{search_text}}&{% endif %}page={{prv}}">{{prv}}</a>
+                            </li>
+
+                        {% endif %}
+
+                    
+                
+                
+                                                    <li class="page-item active">
+                            <span class="page-link">{{s}}</span>
+                        </li>
+                    
+                        {% if next != 'disabled' %}
+                            <li class="page-item">
+                                <a class="page-link" href="?{% if search == 'show' %}s={{search_text}}&{% endif %}page={{nt}}">{{nt}}</a>
+                            </li>
+                        {% endif %}
+                    
+                        {% if nt2 != 'no' %}
+
+                            <li class="page-item">
+                                <a class="page-link" href="?{% if search == 'show' %}s={{search_text}}&{% endif %}page={{nt2}}">{{nt2}}</a>
+                            </li>
+
+                        {% endif %}
+
+                        {% if mf == 'true' %}
+                            <li class="page-item">
+                                <a class="page-link" >...</a>
+                            </li>
+
+                            <li class="page-item">
+                                <a class="page-link" href="?{% if search == 'show' %}s={{search_text}}&{% endif %}page={{m}}">{{m}}</a>
+                            </li>
+                        {% endif %}
+                                                
+                        
+                
+                        
+                    
+                
+                                                                                        
+                
+                    <li class="page-item {{next}}">
+                        <a class="page-link" rel="next" 
+                            {% if next != 'disabled' %}
+                                href="?{% if search == 'show' %}s={{search_text}}&{% endif %}page={{nt}}"
+                            {% endif %}
+                        >التالي&nbsp;&raquo;</a>
+                    </li>
+                        </ul>
+                        
+                {% endif %}
+                        
+    </nav>
+
+    </div>
+
+
+{% endblock content %}
+
+
+
+        
+    
+

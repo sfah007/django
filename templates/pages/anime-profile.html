@@ -1,0 +1,164 @@
+
+{% extends 'base.html' %}
+
+{% load static %}
+{% block content %}
+
+<div class="second-section" >
+<div class="container mt-5" >
+  <div class="row mb-5" >
+    <div class="col-sm-3" >
+      <div class="anime-container-infos">
+        <div class="anime-thumbnail-pic">                
+            <img src="{{anime.image_anime.url}}" />
+        </div>  
+        <hr>
+            <div class="user-action">
+            <ul>
+                                    <li ><a class="favorite addtous" href="/animelekuser/animes/1121/favorite/add/?redirect=/anime/tensei-shitara-slime-datta-ken-2nd-season-part-2/" data-toggle="tooltip" data-placement="top" title="إضافة للمفضلة">
+                            <i class="fa fa-heart"></i></a>
+                    </li>
+                   
+                    
+                            </ul>
+            </div>  
+         <hr>   
+          <div class="full-list-info">
+            <small>النوع</small>
+            <small>
+                {% if anime.anime_type.name == 'تلفزيون' %}
+                    TV
+
+                {% else %}
+                {{anime.anime_type.name}}
+                {% endif %}
+
+            </small>
+          </div>
+          <div class="full-list-info">
+            <small>بداية العرض</small>
+            <small>{{anime.anime_date.name|slice:'-4:'}}</small>
+          </div>
+          <div class="full-list-info">
+            <small>حالة الأنمي</small>
+            <small>{{anime.anime_state.name}}</small>
+          </div>
+          <div class="full-list-info">
+            <small>عدد الحلقات</small>
+                        <small>{{anime.number_episodes}}</small>
+             
+          </div>
+          <div class="full-list-info">
+            <small>الموسم</small>
+            <small>{{anime.anime_date.name}}</small>
+          </div> 
+          <div class="full-list-info">
+            <small>مدة الحلقة</small>
+            <small>{{anime.episode_date}}</small>
+          </div>           
+                                      
+      </div>
+    </div>
+    <div class=" col-sm-9 ">
+      <div class="anime-container-data">
+          <h1 class="anime-details-title" >{{title}}</h1>
+          <h2 class="anime-details-title">شاهد انمي {{title}} مترجم اون لاين   </h2>
+                    <h2 class="anime-details-title">{{title}} / {{anime.anime_date.name|slice:'-4:'}}</h2>
+                  <ul class="anime-genres">
+                        {% for i in class  %}
+
+                        <li><a href="https://animelek.me/anime-genre/%D8%A3%D9%83%D8%B4%D9%86/">{{i}}</a></li>
+                        {% endfor %}
+
+
+                    
+                   
+                      
+        </ul>
+        <p class="anime-story">{{anime.story}}</p>
+      </div>
+      <!--tabs-->
+    <div class="anime-container-navigation-head">     
+        <ul class="nav nav-pills nav-justified">
+            <li class="active"><a data-toggle="pill" href="#episodes">حلقات الأنمي</a></li>
+            
+        </ul>
+    </div>
+    <div class="anime-container-navigation-head">     
+            <div class="tab-content">
+                <div id="episodes" class="tab-pane fade in active">
+                <div class="main-didget-head">
+                    <div class="search-for-episode">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="inputEpisodeProfile" onkeyup="" placeholder="البحث عن حلقة" />
+                        </div>
+                    </div>                
+                 </div>
+                                 
+            <div class="main-widget-body">
+            <div class="space"></div>
+            <div class="space"></div>
+                <div class="episodes-list-content">
+                                    <div class="row display-flex" id="DivEpisodesList">
+                     
+                        {% for episode in episodes  %}
+                        
+                        <div class="col-lg-2 col-md-3 col-sm-6 col-xs-6 col-no-padding col-mobile-no-padding DivEpisodeContainer">
+                            <div class="episodes-card-container">
+                                <div class="episodes-card">
+                                    <div class="hover">
+                                    
+                                        <img class="img-responsive"
+                                            src="{{anime.image_episode.url}}"                                        
+                                            alt="" />
+                                        <a href="{% url 'watch' slug=episode.video eps_num=episode.episode %}"
+                                            class="overlay"></a>
+                                        <div class="play-button">
+                                            <span >
+                                                <a href="{% url 'watch' slug=episode.video eps_num=episode.episode %}" class="overlay"><i class="fa fa-play"></i></a>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            <div class="ep-card-anime-title-detail">
+                                                                            <h3><a style="color:#969696;" href="{% url 'watch' slug=episode.video eps_num=episode.episode %}"> الحلقة <span class='num-es'>{{episode.episode}}</span></a></h3>
+                                                                    </div>
+                                
+                            </div>
+                            
+                        </div>
+                        
+                        {% endfor %}
+                        
+                         
+                        
+                          
+                    </div>
+                    
+                </div>
+            </div>             
+            </div>
+            
+        </div>   
+    </div>
+      <!-- End tabs-->
+    </div>
+  </div>
+  <div class="space"></div>
+</div>
+</div>
+
+
+{% endblock content %}
+
+
+
+
+
+
+
+{% block script %}
+
+<script src="{% static 'js/anime-profile.js' %}"></script>
+{% endblock script %}
+

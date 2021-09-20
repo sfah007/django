@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    <link rel="stylesheet" href="{% static 'css/bootlek.css' %}">
+    <link rel="stylesheet" href="{% static 'css/stylelek.css' %}">
+    <link rel="stylesheet" href="{% static 'css/effects.css' %}">
+    
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    
+
+    <link rel="stylesheet" href="{% static 'fonts/css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'fonts/css/all.css' %}">
+    <link rel="stylesheet" href="{% static 'fonts/css/solid.css' %}">
+    <link rel="stylesheet" href="{% static 'fonts/css/solid.min.css' %}">
+
+    {% block head %}
+
+    {% endblock head %}
+</head>
+<body>
+
+    {% include 'part/navbar.html' %}
+    {% block content %}
+
+
+    {% endblock content %}
+    {% include 'part/footer.html' %}
+    
+
+</body>
+
+<script src="{% static 'js/main.js' %}"></script>
+{% block script %}
+
+
+{% endblock script %}
+
+</html>

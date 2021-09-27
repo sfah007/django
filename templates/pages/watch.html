@@ -17,18 +17,18 @@
                             allowfullscreen="" data-ioarzrhplp-handled="1"></iframe>
 
                             {% elif episode.type_html == 'video' %}
-                             <video
-                                controls
-                                class="vd"
-                            >
-                                <source
-                                src="{% if episode.type_episode == 'video' %}{{episode.video.url}} {% elif episode.type_episode == 'url' %}{{episode.url}}{% endif %}"
-                                type="video/mp4"
-                                />
 
+                                <video
+                                    id="my-player"
+                                    class="video-js vd"
+                                    controls
+                                    preload="auto"
+                                    poster="{{episode.name.image_episode.url}}"
+                                    data-setup="{}">
+                                    <source src="{% if episode.type_episode == 'video' %}{{episode.video.url}} {% elif episode.type_episode == 'url' %}{{episode.url}}{% endif %}" type="video/mp4"></source>
+                                </video>
                                 
                                 
-                            </video>
                             {% endif %}
                             <footer class="ft-video">
                                 <div>
@@ -76,13 +76,6 @@
 
                                         {% endfor %}
                                     
-                                        
-
-                                        
-
-                                        
-
-                                    
                                     </ul> 
                                 </div> 
                                 
@@ -111,5 +104,7 @@
                 
  {% block script %}
  <script src="{% static 'js/watch.js' %}"></script>
+  <link href="//vjs.zencdn.net/7.0/video-js.min.css" rel="stylesheet">
+<script src="//vjs.zencdn.net/7.0/video.min.js"></script>
  {% endblock script %}               
 

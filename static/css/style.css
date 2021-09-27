@@ -106,9 +106,13 @@
 .vd{
     width: 100%;
     height: 600px;
+    direction: ltr !important;
     background: black;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
+}
+.vd * {
+    direction: ltr !important;
 }
 .ft-video{
     position: absolute;

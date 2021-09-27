@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+<body class="fixed-sn light-blue-skin">
+
+
+
+<div class="main-section ">
+        <div class="container">
+            <h3 class="font-important">مواعيد عرض حلقات الانمي</h3>
+        </div>
+</div>
+
+<div class="content page-content-container">
+       
+
+
+
+
+
+{% for i in days %}
+    
+    {% if i.animes|length > 0 %}
+     <div class="container">
+        <div class="main-widget">
+         <div class="main-didget-head">
+                <h2 class="box-title"><span class="fwo"> أنميات </span> {{i.name}}</h2>                
+            </div>
+            <div class="main-widget-body">
+                <div class="anime-list-content">
+
+        {% for anime in i.animes  %}
+
+            <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 col-no-padding col-mobile-no-padding">
+            <div class="anime-card-container">
+                <div class="anime-card-poster">
+                        <div class="hover ">
+                            <img class="img-responsive"   
+                                src="{{anime.image_anime.url}}"
+                                alt="{{anime.title}}" />
+                            <a href="{% url 'anime' slug=anime.url %}" class="overlay"></a>
+                        <div class="play-button-extra">
+                            <span ><a href="{% url 'anime' slug=anime.url %}" class="overlay"></a></span>
+                        
+                            </div>
+                        </div>
+                        <div class="anime-card-status"><a
+                                href="{% url 'anime' slug=anime.url %}" class='font-important' style='font-size: 10px;'>{{anime.anime_state.name}}</a></div>     
+                </div>
+                <div class="anime-card-details">
+                    
+                    <div class="anime-card-title" title="{{anime.title}}" data-toggle="popover" data-trigger="hover"
+                        >
+                        <h3><a href="{% url 'anime' slug=anime.url %}">{{anime.title}}</a></h3>
+                        <h4><a a style="color:#969696;" href="{% url 'anime' slug=anime.url %}">
+                        {{anime.anime_date.name}}
+                        </a></h4>
+
+                    </div>
+                </div>
+            </div>                    
+            </div>  
+
+
+        {% endfor %}
+
+        </div>
+            </div>
+        </div>
+    </div>
+
+    {% endif %}
+
+                    
+{% endfor %}
+
+</div>
+
+
+
+  
+</body>
+    
+
+
+
+{% endblock content %}

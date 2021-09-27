@@ -107,7 +107,7 @@
 
 <!-- start card  -->
 
-{% for i in animes  %}
+{% for i in page  %}
 
 <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 col-no-padding col-mobile-no-padding">
      <div class="anime-card-container">
@@ -139,138 +139,42 @@
 </div>  
 
 {% endfor %}
-<div class="content page-content-container">
-    <div class="container">
-        <div class="main-widget">
-            
-            <div class="main-widget-body">
-                <div class="episodes-list-content">
-                    <div class="row display-flex">
 
-
-{% for episode in episodes  %}
-
-<div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 col-no-padding col-mobile-no-padding">
-  <div class="episodes-card-container">
-    <div class="episodes-card">
-      <div id="main" class="hover ">
-        <img class="img-responsive " src="{{episode.name.image_episode.url}}"
-          alt="اوتاكو otaku uramichi-oniisan-10-الحلقة" />
-        <a href="{% url 'watch' slug=episode.name.number_episodes eps_num=episode.episode %}" class="overlay"></a>
-            <div class="play-button">
-            <span >
-                <a href="{% url 'watch' slug=episode.name.number_episodes eps_num=episode.episode %}" class="overlay"><i
-                    class="fa fa-play"></i></a></span>
-                           
-                        </div>
-      </div>
-          </div>
-    <div class="ep-card-anime-title">
-      <h3><a href="{% url 'watch' slug=episode.name.number_episodes eps_num=episode.episode %}">{{episode.name.episode_date}}</a></h3>
-            <h4><a style="color:#969696;" href="{% url 'watch' slug=episode.name.number_episodes eps_num=episode.episode %}"> 
-            {% if episode.name.anime_type.name == 'تلفزيون' %}
-                الحلقة
-            {% else %}
-            {{episode.name.anime_type.name}}
-            {% endif %}
-            
-          {{episode.episode}}</a></h4>
-          </div>
-  </div>
-</div> 
-
-{% endfor %}
-
- 
-                                                     
-</div>   
-</div>                               
- </div>
             <nav>
-                {% if m > 1 %}
+                {% if page.paginator.num_pages > 1 %}
                 
                     <ul class="pagination">
-
-                                <li class="page-item {{previos}}">
-                                    <a class="page-link" 
-                                        {% if previos != 'disabled' %}
-                                            href="?{% if search == 'show' %}s={{search_text}}&{% endif %}page={{prv}}"
-                                        {% endif %}
-                                    >&laquo;&nbsp;السابق</a>
-                                </li>
-
-                                {% if mi == 'true' %}
+                                {% if page.has_previous %}
                                     <li class="page-item">
-                                        <a class="page-link" href="?{% if search == 'show' %}s={{search_text}}&{% endif %}page=1">1</a>
+                                        <a class="page-link" href="?{% if search == 'show' %}s={{search_text}}&{% endif %}page={{page.previous_page_number}}">&laquo;&nbsp;السابق</a>
                                     </li>
-
-
-                                    <li class="page-item">
-                                        <a class="page-link" >...</a>
+                                {% else %}
+                                    <li class="page-item disabled">
+                                        <span class="page-link">&laquo;&nbsp;السابق</span>
                                     </li>
                                 {% endif %}
 
-                        {% if prv2 != 'no' %}
+                                {% for i in page.range %}
+                                    {% if i == page.number %}
+                                        <li class="page-item active">
+                                            <span class="page-link">{{i}}</span>
+                                        </li>
+                                    {% else %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="?{% if search == 'show' %}s={{search_text}}&{% endif %}page={{i}}">{{i}}</a>
+                                    </li>
+                                    {% endif %}
+                                {% endfor %}
 
-                            <li class="page-item ">
-                                <a class="page-link" href="?{% if search == 'show' %}s={{search_text}}&{% endif %}page={{prv2}}">{{prv2}}</a>
-                            </li>
-
-                        {% endif %}
-
-                        {% if previos != 'disabled' %}
-
-                            <li class="page-item ">
-                                <a class="page-link" href="?{% if search == 'show' %}s={{search_text}}&{% endif %}page={{prv}}">{{prv}}</a>
-                            </li>
-
-                        {% endif %}
-
-                    
-                
-                
-                                                    <li class="page-item active">
-                            <span class="page-link">{{s}}</span>
-                        </li>
-                    
-                        {% if next != 'disabled' %}
-                            <li class="page-item">
-                                <a class="page-link" href="?{% if search == 'show' %}s={{search_text}}&{% endif %}page={{nt}}">{{nt}}</a>
-                            </li>
-                        {% endif %}
-                    
-                        {% if nt2 != 'no' %}
-
-                            <li class="page-item">
-                                <a class="page-link" href="?{% if search == 'show' %}s={{search_text}}&{% endif %}page={{nt2}}">{{nt2}}</a>
-                            </li>
-
-                        {% endif %}
-
-                        {% if mf == 'true' %}
-                            <li class="page-item">
-                                <a class="page-link" >...</a>
-                            </li>
-
-                            <li class="page-item">
-                                <a class="page-link" href="?{% if search == 'show' %}s={{search_text}}&{% endif %}page={{m}}">{{m}}</a>
-                            </li>
-                        {% endif %}
-                                                
-                        
-                
-                        
-                    
-                
-                                                                                        
-                
-                    <li class="page-item {{next}}">
-                        <a class="page-link" rel="next" 
-                            {% if next != 'disabled' %}
-                                href="?{% if search == 'show' %}s={{search_text}}&{% endif %}page={{nt}}"
-                            {% endif %}
-                        >التالي&nbsp;&raquo;</a>
-                    </li>
+                                {% if page.has_next %}
+                                    <li class="page-item ">
+                                        <a class="page-link" href="?{% if search == 'show' %}s={{search_text}}&{% endif %}page={{page.next_page_number}}">التالي&nbsp;&raquo;</a>
+                                    </li>
+                                {% else %}
+                                    <li class="page-item disabled">
+                                        <span class="page-link" >التالي&nbsp;&raquo;</a>
+                                    </li>
+                                {% endif %}
                         </ul>
                         
                 {% endif %}

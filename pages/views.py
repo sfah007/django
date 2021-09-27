@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from .models import AnimeDays, AnimeState, AnimeClass, AnimeDate, AnimeType, Anime, Episodes
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 # Create your views here.
 
 
@@ -23,15 +24,9 @@ def index(request):
     x = {
         'episodes': episodes,
         'animes_search': animes,
-        'temp': 'index'
     }
 
     return render(request, 'pages/index.html', x)
-
-
-
-
-
 
 
 
@@ -49,72 +44,32 @@ def list_anime(request):
 
     if request.method == 'GET':
         if 'page' in request.GET:
-            s = int(request.GET['page'])
+            s = request.GET['page']
         if 's' in request.GET:
             sr = request.GET['s']
             title = f'نتائج البحث عن [ {sr} ]'
             animes = animes.filter(name__contains=sr)
         
 
-        
+    paginator = Paginator(animes, 24)
 
-    
+    try:
+        page = paginator.page(s)
+    except PageNotAnInteger:
+        page = paginator.page(1)
+    except EmptyPage:
+        page = paginator.page(paginator.num_pages)  
 
-    
-    one = 24
-    page = 0
-    
-    previos = ''
-    length = len(animes)
-
-    # max
-    m = length / one
-    f = 1.5
-    mf = 'true'
-
-    if type(m) == type(f):
-        m = int(m)+1
-
-    if s+2 >= m:
-        mf = 'false'
+    if page.number <= 1:
+        page.range = range(page.number, paginator.num_pages+1)[:3]
+    elif page.number == 2:
+        page.range = range(page.number-1, paginator.num_pages+1)[:4]
+    else:
+        page.range = range(page.number-2, paginator.num_pages+1)[:5]
 
 
-    # min
 
-    mi = 'true'
-    if s < 5:
-        mi = 'false'
-
-
-    if s > m:
-        s = m
-
-    # next
-    next = ''
-    nt2 = s+2 
-
-
-    if (s+1) > m:
-        next = 'disabled'
-
-    if (s+2 ) > m:
-        nt2 = 'no'
-
-    # prv
-    prv2 = s-2
-    
-    if s == 1 or s > m+1:
-        previos = 'disabled'
-
-    if s <= 2 or s>m+2:
-        prv2 = 'no'
-    
-
-  
-    
-
-
-    for anime in animes:
+    for anime in page:
         anime.url_anime = anime.name.replace(' ','-')
         anime.title = anime.name.title()
 
@@ -136,17 +91,7 @@ def list_anime(request):
         'anime_state': anime_state,
         'anime_date': anime_date,
         'anime_class': anime_class,
-        'animes': animes[(s-1)*one:s*one],
-        'next': next,
-        'previos' : previos,
-        's': s,
-        'nt': s+1,
-        'nt2': nt2,
-        'prv': s-1,
-        'prv2': prv2,
-        'm' : m,
-        'mf' : mf,
-        'mi' : mi,
+        'page': page,
     }
 
 
@@ -188,66 +133,27 @@ def ht(request, slug, name):
             
         if request.method == 'GET':
             if 'page' in request.GET:
-                s = int(request.GET['page'])
+                s = request.GET['page']
+
+        paginator = Paginator(animes, 24)
+
+        try:
+            page = paginator.page(s)
+        except PageNotAnInteger:
+            page = paginator.page(1)
+        except EmptyPage:
+            page = paginator.page(paginator.num_pages)  
+
+        if page.number <= 1:
+            page.range = range(page.number, paginator.num_pages+1)[:3]
+        elif page.number == 2:
+            page.range = range(page.number-1, paginator.num_pages+1)[:4]
+        else:
+            page.range = range(page.number-2, paginator.num_pages+1)[:5]
             
-            
+  
 
-        
-
-        
-        one = 24
-        page = 0
-        
-        previos = ''
-        length = len(animes)
-
-        # max
-        m = length / one
-        f = 1.5
-        mf = 'true'
-
-        if type(m) == type(f):
-            m = int(m)+1
-
-        if s+2 >= m:
-            mf = 'false'
-
-
-        # min
-
-        mi = 'true'
-        if s < 5:
-            mi = 'false'
-
-
-        if s > m:
-            s = m
-
-        # next
-        next = ''
-        nt2 = s+2 
-
-
-        if (s+1) > m:
-            next = 'disabled'
-
-        if (s+2 ) > m:
-            nt2 = 'no'
-
-        # prv
-        prv2 = s-2
-        
-        if s == 1 or s > m+1:
-            previos = 'disabled'
-
-        if s <= 2 or s>m+2:
-            prv2 = 'no'
-        
-
-    
-
-
-        for anime in animes:
+        for anime in page:
             anime.url_anime = anime.name.replace(' ','-')
             anime.title = anime.name.title()
         
@@ -272,17 +178,7 @@ def ht(request, slug, name):
             'anime_state': anime_state,
             'anime_date': anime_date,
             'anime_class': anime_class,
-            'animes': animes[(s-1)*one:s*one],
-            'next': next,
-            'previos' : previos,
-            's': s,
-            'nt': s+1,
-            'nt2': nt2,
-            'prv': s-1,
-            'prv2': prv2,
-            'm' : m,
-            'mf' : mf,
-            'mi' : mi,
+            'page': page,
         }
 
         
@@ -302,91 +198,37 @@ def episode(request):
 
     if request.method == 'GET':
         if 'page' in request.GET:
-            s = int(request.GET['page'])
+            s = request.GET['page']
 
-    
-    one = 24
-    page = 0
-    
-    previos = ''
-    length = len(episode)
+    paginator = Paginator(episode, 24)
 
-    # max
-    m = length / one
-    f = 1.5
-    mf = 'true'
+    try:
+        page = paginator.page(s)
+    except PageNotAnInteger:
+        page = paginator.page(1)
+    except EmptyPage:
+        page = paginator.page(paginator.num_pages)  
 
-    if type(m) == type(f):
-        m = int(m)+1
-
-    if s+2 >= m:
-        mf = 'false'
+    if page.number <= 1:
+        page.range = range(page.number, paginator.num_pages+1)[:3]
+    elif page.number == 2:
+        page.range = range(page.number-1, paginator.num_pages+1)[:4]
+    else:
+        page.range = range(page.number-2, paginator.num_pages+1)[:5]    
 
 
-    # min
-
-    mi = 'true'
-    if s < 5:
-        mi = 'false'
-
-
-    if s > m:
-        s = m
-
-    # next
-    next = ''
-    nt2 = s+2 
-
-
-    if (s+1) > m:
-        next = 'disabled'
-
-    if (s+2 ) > m:
-        nt2 = 'no'
-
-    # prv
-    prv2 = s-2
-    
-    if s == 1 or s > m+1:
-        previos = 'disabled'
-
-    if s <= 2 or s>m+2:
-        prv2 = 'no'
-    
-
-  
-    if (s * one) > length and (s * one) - length > 0:
-        page = length
-
-    elif (s * one) < length:
-        page = s*one
-
-
-    
-
-
-    for i in episode:
+    for i in page:
         i.name.episode_date = i.name.name.title()
         i.name.number_episodes = i.name.name.replace(' ', '-')
 
     x = {
-        'episodes': episode,
+        'page': page,
         'ul_hide' : 'hide',
         'title': title,
-        'next': next,
-        'previos' : previos,
-        's': s,
-        'nt': s+1,
-        'nt2': nt2,
-        'prv': s-1,
-        'prv2': prv2,
-        'm' : m,
-        'mf' : mf,
-        'mi' : mi,
     }
 
 
-    return render(request, 'pages/list-anime.html', x)
+    return render(request, 'pages/episode.html', x)
 
 
 # search
@@ -404,7 +246,7 @@ def search(request):
 
     if request.method == 'GET':
         if 'page' in request.GET:
-            s = int(request.GET['page'])
+            s = request.GET['page']
         if 's' in request.GET:
             sr = request.GET['s']
             search = 'show'
@@ -412,61 +254,24 @@ def search(request):
             animes = animes.filter(name__icontains=sr)
             sr = sr.replace(' ', '+')
             
- 
-    one = 24
-    page = 0
-    
-    previos = ''
-    length = len(animes)
+    paginator = Paginator(animes, 24)
 
-    # max
-    m = length / one
-    f = 1.5
-    mf = 'true'
+    try:
+        page = paginator.page(s)
+    except PageNotAnInteger:
+        page = paginator.page(1)
+    except EmptyPage:
+        page = paginator.page(paginator.num_pages)  
 
-    if type(m) == type(f):
-        m = int(m)+1
-
-    if s+2 >= m:
-        mf = 'false'
+    if page.number <= 1:
+        page.range = range(page.number, paginator.num_pages+1)[:3]
+    elif page.number == 2:
+        page.range = range(page.number-1, paginator.num_pages+1)[:4]
+    else:
+        page.range = range(page.number-2, paginator.num_pages+1)[:5]
 
 
-    # min
-
-    mi = 'true'
-    if s < 5:
-        mi = 'false'
-
-
-    if s > m:
-        s = m
-
-    # next
-    next = ''
-    nt2 = s+2 
-
-
-    if (s+1) > m:
-        next = 'disabled'
-
-    if (s+2 ) > m:
-        nt2 = 'no'
-
-    # prv
-    prv2 = s-2
-    
-    if s == 1 or s > m+1:
-        previos = 'disabled'
-
-    if s <= 2 or s>m+2:
-        prv2 = 'no'
-    
-
-  
-    
-
-
-    for anime in animes:
+    for anime in page:
         anime.url_anime = anime.name.replace(' ','-')
         anime.title = anime.name.title()
 
@@ -488,17 +293,7 @@ def search(request):
         'anime_state': anime_state,
         'anime_date': anime_date,
         'anime_class': anime_class,
-        'animes': animes[(s-1)*one:s*one],
-        'next': next,
-        'previos' : previos,
-        's': s,
-        'nt': s+1,
-        'nt2': nt2,
-        'prv': s-1,
-        'prv2': prv2,
-        'm' : m,
-        'mf' : mf,
-        'mi' : mi,
+        'page': page,
         'search': search,
         'search_text': sr
     }
@@ -517,12 +312,9 @@ def days_anime(request):
             x.title = x.name.title()
             x.url = x.name.replace(' ', '-')
 
-    
- 
 
     x = {
-        'temp': 'days_anime',
         'days': days,
     }
 
-    return render(request, 'pages/index.html', x)
+    return render(request, 'pages/days_anime.html', x)

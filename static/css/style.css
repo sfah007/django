@@ -102,17 +102,14 @@
 /*  start video  */
 .video{
     position: relative;
+    direction: ltr !important;
 }
 .vd{
     width: 100%;
     height: 600px;
-    direction: ltr !important;
     background: black;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
-}
-.vd * {
-    direction: ltr !important;
 }
 .ft-video{
     position: absolute;
@@ -128,9 +125,11 @@
     border-bottom-right-radius: 8px;
     font-size: 13px;
     gap: 5px;
+    direction: rtl !important;
 }
 .ft-video *{
     color: #0c85c7;
+    direction: rtl !important;
 }
 
 

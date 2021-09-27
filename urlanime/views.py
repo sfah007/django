@@ -26,31 +26,20 @@ def watch(request, slug, eps_num):
     anime = Anime.objects.get(name=slug.replace('-',' '))
     episodes = Episodes.objects.filter(name=anime).order_by('episode')
 
+
     episode = Episodes.objects.get(name=anime, episode=str(eps_num))
-    e = float(episode.episode)
+    m = 'hide'
+    n = 'hide'
 
-    m = Episodes.objects.get(name=anime, episode=str(eps_num))
-    m.episode = -100000
-    n = Episodes.objects.get(name=anime, episode=str(eps_num))
-    n.episode = 100000
-    for i in episodes:
-        v1 = float(i.episode)
-        if v1 < e and v1 > float(m.episode):
-            m = i
-        if v1 > e and v1 < float(n.episode):
-            n = i
+    if episodes.filter(episode=str(int(eps_num)-1)).exists():
+        m = episodes.get(episode=str(int(eps_num)-1))
+        m.url_anime = m.name.name.replace(' ','-')
+
+    if episodes.filter(episode=str(int(eps_num)+1)).exists():
+        n = episodes.get(episode=str(int(eps_num)+1))
+        n.url_anime = n.name.name.replace(' ','-')
+
     
-    print('M : ',m)
-    if m.episode == -100000:
-        m = 'hide'
-    else:
-        m.name.name = m.name.name.replace(' ', '-')
-
-    if n.episode == 100000:
-        n = 'hide'
-    else:
-        n.name.name = n.name.name.replace(' ', '-')
-
     animes = Anime.objects.all()
     for i in animes:
         i.url_anime = i.name.replace(' ','-')
@@ -58,7 +47,7 @@ def watch(request, slug, eps_num):
 
     for i in episodes:
         i.url_anime = i.name.name.replace(' ','-')
-
+    
     x = {
         'episode': episode,
         'episodes': episodes,

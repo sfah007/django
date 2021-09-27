@@ -23,7 +23,7 @@
                                     class="video-js vd"
                                     controls
                                     preload="auto"
-                                    poster="{{episode.name.image_episode.url}}"
+                                    poster="{{episode.name.image_anime.url}}"
                                     data-setup="{}">
                                     <source src="{% if episode.type_episode == 'video' %}{{episode.video.url}} {% elif episode.type_episode == 'url' %}{{episode.url}}{% endif %}" type="video/mp4"></source>
                                 </video>
@@ -35,13 +35,13 @@
                                     {% if prv_hide != 'hide' %}
                                         
                                             <i class="fa fa-forward"></i> 
-                                            <a href="{% url 'watch' slug=prv_hide.name.name eps_num=prv_hide.episode %}">الحلقة السابقة</a>
+                                            <a href="{% url 'watch' slug=prv_hide.url_anime eps_num=prv_hide.episode %}">الحلقة السابقة</a>
                                         
                                     {% endif %}
                                 </div>
                                 <div>
                                     {% if next_hide != 'hide' %}
-                                        <a href="{% url 'watch' slug=next_hide.name.name eps_num=next_hide.episode %}">الحلقة التالية</a>
+                                        <a href="{% url 'watch' slug=next_hide.url_anime eps_num=next_hide.episode %}">الحلقة التالية</a>
                                         <i class="fa fa-backward"></i> 
                                     {% endif %}
                                     

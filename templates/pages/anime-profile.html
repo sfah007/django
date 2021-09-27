@@ -39,6 +39,12 @@
             <small>بداية العرض</small>
             <small>{{anime.anime_date.name|slice:'-4:'}}</small>
           </div>
+          {% if anime.anime_state.name == 'مستمر' %}
+          <div class="full-list-info">
+            <small>موعد عرض الحلقة</small>
+            <small>{{anime.anime_days.name}}</small>
+          </div>
+          {% endif %}
           <div class="full-list-info">
             <small>حالة الأنمي</small>
             <small>{{anime.anime_state.name}}</small>

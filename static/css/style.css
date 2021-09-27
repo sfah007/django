@@ -103,6 +103,9 @@
 .video{
     position: relative;
 }
+.video{
+    direction: ltr !important;
+}
 .vd{
     width: 100%;
     height: 600px;
@@ -124,9 +127,11 @@
     border-bottom-right-radius: 8px;
     font-size: 13px;
     gap: 5px;
+    direction: rtl !important;
 }
 .ft-video *{
     color: #0c85c7;
+    direction: rtl !important;
 }
 
 

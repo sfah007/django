@@ -103,7 +103,7 @@
 .video{
     position: relative;
 }
-.video{
+.video *{
     direction: ltr !important;
 }
 .vd{

@@ -26,6 +26,41 @@
             <li>
                 <a href="{% url 'days_anime' %}">مواعيد الحلقات</a>
             </li>
+
+            <li>
+                <div class="dropdown">
+                        
+                
+            {% if request.user.is_authenticated %}
+                <button class="btn btn-default dropdown-toggle" type="button" id="genresDropdown"
+                            data-toggle="dropdown" aria-expanded="true" >
+                                أخرى  <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu scrollable-menu" id="drop5" role="menu" aria-labelledby="genresDropdown">
+                            <li role="presentation">
+                                <a href="{% url 'logout'%}">تسجيل الخروج</a>
+                            </li>
+                            <li role="presentation">
+                                <a href="{% url 'logout'%}">تسجيل الخروج</a>
+                            </li>                             
+                </ul>
+            {% else %}
+                <button class="btn btn-default dropdown-toggle" type="button" id="genresDropdown"
+                            data-toggle="dropdown" aria-expanded="true" >
+                                انضم لنا  <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu scrollable-menu" id="drop5" role="menu" aria-labelledby="genresDropdown">
+                            <li role="presentation">
+                                <a href="{% url 'register'%}">إنشاء حساب</a>
+                            </li>
+                            <li role="presentation">
+                                <a href="{% url 'login'%}">تسجيل الدخول</a>
+                        </li>                             
+                </ul>
+
+            {% endif %}
+            </div>
+            </li>
         </ul>
 
         <div class="search-navbar-edit ds-none-2" id="search-navbar">

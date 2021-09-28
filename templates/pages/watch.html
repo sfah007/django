@@ -1,6 +1,16 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block head %}
+<style>
+.video *{
+    direction: ltr !important;
+}
+.ft-video *, .ft-video{
+    direction: rtl !important;
+}
+</style>
+{% endblock head %}
 
 {% block content %}
 

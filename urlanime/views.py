@@ -3,6 +3,7 @@ from pages.models import Anime, Episodes
 # Create your views here.
 def anime(request, slug):
     anime = Anime.objects.get(name=slug.replace('-',' '))
+    anime.url_anime = anime.name.replace(' ','-')
     episodes = Episodes.objects.filter(name=anime).order_by('episode')
 
     for i in episodes:

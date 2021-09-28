@@ -35,6 +35,7 @@ ALLOWED_HOSTS = ['hamza-animes.herokuapp.com', '*']
 # Application definition
 
 INSTALLED_APPS = [
+    'account.apps.AccountConfig',
     'pages.apps.PagesConfig',
     'urlanime.apps.UrlanimeConfig',
     'django.contrib.admin',
@@ -43,8 +44,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'crispy_forms',
     'import_export',
-    'rest_framework',
     'corsheaders',
     'storages'
 ]
@@ -94,6 +95,19 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+"""
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'anime',
+        'USER': 'postgres',
+        'PORT': '5432',
+        'HOST': 'localhost',
+        'PASSWORD': 'admin'
+    }
+}
+"""
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -144,7 +158,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
-
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+LOGIN_REDIRECT_URL = 'index'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 

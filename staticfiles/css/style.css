@@ -133,8 +133,11 @@
     color: #0c85c7;
     direction: rtl !important;
 }
+ul.dropdown-menu a{
+    color: black !important;
+}
 
-
+.favorite{color:#f16464}
 /*  start vd-auth  */
 
 .vd-auth{
@@ -195,6 +198,8 @@
     font-size: 14px;
     direction: ltr !important;
 }
+
+
 
 /*  end section  */
 

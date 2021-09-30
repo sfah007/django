@@ -31,7 +31,7 @@ def send_message(user,request):
     
     Please use the link below to verify your account.
     
-    http://{domain}/account/activate-user/{context["uid"]}/{context["token"]}'''
+    https://{domain}/account/activate-user/{context["uid"]}/{context["token"]}'''
     send_mail(
         subject,
         body,

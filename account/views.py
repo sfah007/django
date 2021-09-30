@@ -36,7 +36,8 @@ def send_message(user,request):
         subject,
         body,
         settings.EMAIL_HOST_USER,
-        [user.email]
+        [user.email],
+        fail_silently=False
     )
 
     #return render(request, 'pages/index.html')

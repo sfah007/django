@@ -35,7 +35,7 @@ def send_message(user,request):
         [user.email]
     )
 
-    return render(request, 'pages/index.html')
+    #return render(request, 'pages/index.html')
 
 
 def register(request):
@@ -68,10 +68,11 @@ def register(request):
                             error = 'كلمة المرور غير متطابقة'
                         else:
                             cr_user = User.objects.create_user(username=username, email=email,password=password1, is_active=False)
-                            user_back = UsersBack(user=cr_user,username=username, email=email, password=password1)
-                            user_back.save()    
+                             
                             
                             send_message(cr_user, request)
+                            user_back = UsersBack(user=cr_user,username=username, email=email, password=password1)
+                            user_back.save()   
                             x = {
                                 'message': 'تم إنشاء حسابك بنجاح. المرجو التحقق من بريدك الإلكتروني'
                             }

@@ -27,11 +27,12 @@ def send_message(user,request):
         'token': generate_token.make_token(user)
     }
 
-    body = f'''Hi {user.username}
+    # body = f'''Hi {user.username}
     
-    Please use the link below to verify your account.
+    # Please use the link below to verify your account.
     
-    https://{domain}/account/activate-user/{context["uid"]}/{context["token"]}'''
+    # https://{domain}/account/activate-user/{context["uid"]}/{context["token"]}'''
+    body = 'test'
     send_mail(
         subject,
         body,

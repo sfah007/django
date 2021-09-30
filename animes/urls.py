@@ -22,12 +22,13 @@ from django.views.static import serve
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('pages.urls')),
+    path('account/', include('account.urls')),
     path('anime/', include('urlanime.urls')),
-    path('', include('account.urls'))
+    path('', include('pages.urls')),
 ] 
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 handler404 = 'urlanime.views.error404'
+handler500 = 'urlanime.views.error500'

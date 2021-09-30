@@ -9,7 +9,7 @@ urlpatterns = [
     re_path(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}), 
     path('', views.index, name='index'),
     path('قائمة-الأنمي/', views.list_anime, name='list_anime'),
-    path('<str:name>/<str:slug>', views.ht, name='ht'),
+    path('categorie/<str:name>/<str:slug>/', views.ht, name='ht'),
     path('episode/', views.episode, name='episode'),
     path('search/', views.search, name='search'),
     path('مواعيد-عرض-حلقات-الانمي/', views.days_anime, name='days_anime')

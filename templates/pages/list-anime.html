@@ -28,7 +28,7 @@
                             <ul class="dropdown-menu scrollable-menu" id="drop1" role="menu" aria-labelledby="genresDropdown">
                                     {% for class in anime_class  %}
                                         <li role="presentation">
-                                            <a href="{% url 'ht' name='anime-genre' slug=class.url_anime%}">{{class.name}}</a>
+                                            <a  href="{% url 'ht' name='anime-genre' slug=class.url_anime%}">{{class.name}}</a>
                                         </li>
                                     {% endfor %}
                                     
@@ -139,7 +139,8 @@
 </div>  
 
 {% endfor %}
-
+</div>
+    </div>    
             <nav>
                 {% if page.paginator.num_pages > 1 %}
                 

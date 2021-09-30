@@ -6,7 +6,7 @@
     box-sizing: border-box;
 }
 body{
-    background: #eee;
+    background: #eee !important;
 }
 .my-form-container{
     width: 400px;
@@ -23,7 +23,7 @@ body{
     justify-content: center;
     align-items: center;
     font-weight: 700;
-    font-size: 20px;
+    font-size: 18px;
     letter-spacing: 1.3px;
     word-spacing: 2px;
     font-family: Cairo, sans-serif;
@@ -33,6 +33,12 @@ body{
     padding: 10px 20px 20px;
     background: white;
     grid-template-columns: 100%;
+}
+.my-form > .form-group{
+    margin-top: 5px;
+}
+.my-form *{
+    direction: rtl !important;
 }
 
 .my-form-btn-login{
@@ -46,6 +52,17 @@ body{
     margin-top: 10px;
     border: 1px solid #eee;
     border-radius: 5px;
+}
+.my-form input[type='text']{
+    margin-top: 3px;
+    direction: ltr !important;
+}
+.my-form label{
+    width: 100%;
+    padding: 5px 0px;
+    font-size: 15px;
+    margin-top: -3px;
+    direction: rtl !important;
 }
 .my-form-div{
     display: flex;
@@ -61,19 +78,19 @@ body{
     padding: 8px;
     border-radius: 5px;
     border: 1px solid #ba2121;
-    letter-spacing: 0.8px;
+    letter-spacing: 0.5px;
     word-spacing: 1px;
 }
 .my-form-message{
     background: white;
     text-decoration: none;
     font-family: Cairo, sans-serif;
-    font-size: 12px;
+    font-size: 13px;
     margin-top: 20px;
     margin-left: calc(50% - 200px);
     width: 400px;
     padding: 12px;
-    word-spacing:1.2px;
+    word-spacing:1px;
     border: 1px solid rgb(212, 210, 210);
     border-radius: 7px;
     direction:rtl;

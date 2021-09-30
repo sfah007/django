@@ -1,7 +1,14 @@
 
 {% extends 'base.html' %}
-
 {% load static %}
+
+{% block head %}
+<style>
+.favorite{color:#f16464 !important}
+
+</style>
+{% endblock head %}
+
 {% block content %}
 
 <div class="second-section" >
@@ -15,7 +22,7 @@
         <hr>
             <div class="user-action">
             <ul>
-                                    <li ><a class="favorite addtous" href="{% url 'animes-favorite' name=anime.url_anime %}" id='heart' data-toggle="tooltip" data-placement="top" title="إضافة للمفضلة">
+                                    <li ><a class="{{class_fav}} addtous" href="{% url 'animes-favorite_check' name=anime.url_anime %}" id='heart' data-toggle="tooltip" data-placement="top" title="إضافة للمفضلة">
                             <i class="fa fa-heart" ></i></a>
                     </li>
                    

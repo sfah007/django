@@ -8,5 +8,7 @@ urlpatterns = [
     path('register/', views.register, name='register'),
     path('login/', views.login, name='login'),
     path('logout/', views.logout, name='logout'),
-    path('animes-favorite/<str:name>', views.animes_favorites, name='animes-favorite'),
+    path('animes-favorite/add/<str:name>/', views.animes_favorites_check, name='animes-favorite_check'),
+    path('animes-favorite/', views.animes_favorites, name='animes-favorite'),
+    path('activate-user/<uidb64>/<token>/', views.activate, name='activate'),
 ]

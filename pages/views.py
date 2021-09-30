@@ -186,6 +186,8 @@ def ht(request, slug, name):
 
 
         return render(request, 'pages/list-anime.html', x)
+    else:
+        return render(request, 'pages/error404.html')
     
     
 

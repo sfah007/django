@@ -136,8 +136,15 @@
 ul.dropdown-menu a{
     color: black !important;
 }
-
-
+.presentation{
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+}
+.presentation-link{
+    font-size: 12px !important;
+}
+.favorite{color:#f16464 !important}
 /*  start vd-auth  */
 
 .vd-auth{

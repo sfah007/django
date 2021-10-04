@@ -27,12 +27,12 @@ def send_message(user,request):
         'token': generate_token.make_token(user)
     }
 
-    # body = f'''Hi {user.username}
+    body = render_to_string('account/activate.html', context)
     
     # Please use the link below to verify your account.
     
     # https://{domain}/account/activate-user/{context["uid"]}/{context["token"]}'''
-    body = 'test'
+    
     send_mail(
         subject,
         body,

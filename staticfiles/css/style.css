@@ -99,7 +99,7 @@
     grid-template-columns: 75% 25%;
     gap: 25px;
 }
-/*  start video  */
+/*  start video  
 .video{
     position: relative;
 }
@@ -132,7 +132,7 @@
 .ft-video *{
     color: #0c85c7;
     direction: rtl !important;
-}
+}*/
 ul.dropdown-menu a{
     color: black !important;
 }

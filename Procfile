@@ -1,1 +1,1 @@
-web: gunicorn animes.wsgi --log-file -
+web: gunicorn animes.wsgi --timeout 1000 --keep-alive 5 --log-level debug

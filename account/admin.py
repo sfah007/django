@@ -4,7 +4,5 @@ from .models import *
 # Register your models here.
     
 @admin.register(UsersBack)
-class AnimeAdmin(ImportExportModelAdmin, admin.ModelAdmin):
-    list_display = ['user', 'email']
-    search_fields = ['username']
+class AnimeAdmin(ImportExportModelAdmin):
     pass

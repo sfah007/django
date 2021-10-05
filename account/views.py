@@ -73,12 +73,11 @@ def register(request):
                         if password1 != password2:
                             error = 'كلمة المرور غير متطابقة'
                         else:
-                            cr_user = User.objects.create_user(username=username, email=email,password=password1, is_active=False)
-                             
+                            cr_user = User.objects.create_user(username=username, email=email,password=password1)
+                            user_back = UsersBack(user=cr_user, is_active=False)
+                            user_back.save()  
                             
-                            send_message(cr_user, request)
-                            user_back = UsersBack(user=cr_user,username=username, email=email, password=password1)
-                            user_back.save()   
+                            send_message(cr_user, request) 
                             x = {
                                 'message': 'تم إنشاء حسابك بنجاح. المرجو التحقق من بريدك الإلكتروني'
                             }
@@ -109,14 +108,17 @@ def login(request):
             password = request.POST['password']
 
             user = auth.authenticate(username=username, password=password)
-            if  user is not None:
-                auth.login(request, user)
-                return redirect('index')
-            else:
-                if UsersBack.objects.filter(username=username, password=password).exists():
+            print(user)
+
+            if UsersBack.objects.filter(user=user, is_active=False).exists():
                     error = 'المرجو تفعيل حسابك'
+            else:
+                if user is not None:
+                    auth.login(request, user)
+                    return redirect('index')
                 else:
                     error = 'اسم المستخدم او كلمة المرور غير صحيحة'
+                
 
 
         x = {
@@ -195,15 +197,10 @@ def activate(request, uidb64, token):
         user=None
 
     if user and generate_token.check_token(user, token):
-        user.is_active = True
-        user.save()
+        user_back = UsersBack.objects.get(user=user)
+        user_back.is_active = True
+        user_back.save()
 
-        ps = UsersBack.objects.get(email=uid).password
-        
-        at = auth.authenticate(username=user.username, password=ps)
-        
-        if at is not None:
-            auth.login(request, at)
-        
-
+        print(user)
+        auth.login(request, user)
         return redirect('index')

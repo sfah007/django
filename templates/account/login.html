@@ -10,6 +10,13 @@
 </head>
 <body>
 {% load crispy_forms_tags %}
+    {% if message %}
+        <div class="my-form-message">
+            {{message}}
+        </div>
+    {% endif %}
+    
+
     <div class="my-form-container ">
         <div class="nav-login">
             <h4 class="">تسجيل الدخول</h4>

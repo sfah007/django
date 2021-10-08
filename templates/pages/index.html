@@ -75,7 +75,7 @@
 
 <!--  start card -->
 
-{% for anime in animes_search|slice:':24'  %}
+{% for anime in animes_search  %}
 
  <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 col-no-padding col-mobile-no-padding">
 <div class="anime-card-container">
@@ -91,14 +91,14 @@
                 </div>
             </div>
             <div class="anime-card-status"><a
-                    href="" class='font-important' style='font-size: 10px;'>{{anime.anime_state.name}}</a></div>     
+                    href="{% url 'ht' name='anime-state' slug=anime.anime_state.name %}" class='font-important' style='font-size: 10px;'>{{anime.anime_state.name}}</a></div>     
     </div>
     <div class="anime-card-details">
         
         <div class="anime-card-title" title="{{anime.title}}" data-toggle="popover" data-trigger="hover"
             >
             <h3><a href="{% url 'anime' slug=anime.url_anime %}">{{anime.title}}</a></h3>
-            <h4><a a style="color:#969696;" href="{% url 'anime' slug=anime.url_anime %}">{{anime.anime_date.name}}</a></h4>
+            <h4><a a style="color:#969696;" href="{% url 'ht' name='anime-season' slug=anime.url_date %}">{{anime.anime_date.name}}</a></h4>
 
         </div>
     </div>

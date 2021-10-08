@@ -1,5 +1,6 @@
+from django.conf.urls import url
 from django.core import paginator
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import *
 from .models import *
 from django.contrib.admin.models import * 
@@ -15,6 +16,9 @@ from django.template.loader import render_to_string
 import re
 from django.conf import settings
 from .utils import generate_token
+from django.contrib import admin 
+from animes import urls
+from django.urls import path, include
 # Create your views here.
 
 def send_message(user,request):
@@ -108,12 +112,13 @@ def login(request):
             password = request.POST['password']
 
             user = auth.authenticate(username=username, password=password)
-            print(user)
+            
 
             if UsersBack.objects.filter(user=user, is_active=False).exists():
                     error = 'المرجو تفعيل حسابك'
             else:
                 if user is not None:
+                        
                     auth.login(request, user)
                     return redirect('index')
                 else:
@@ -155,7 +160,7 @@ def animes_favorites(request):
         if request.method == 'GET':
             if 'page' in request.GET:
                 s = request.GET['page']
-        user_back = UsersBack.objects.get(user=request.user)
+        user_back = get_object_or_404(UsersBack, user=request.user)
         paginator = Paginator(user_back.animes_fav.all(), 24)
 
         
@@ -176,6 +181,7 @@ def animes_favorites(request):
         for i in page:
             i.title = i.name.title()
             i.url_anime = i.name.replace(' ', '-')
+            i.url_date = i.anime_date.name.replace(' ', '-')
             
 
         x = {

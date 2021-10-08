@@ -30,7 +30,7 @@
                             </div>
                         </div>
                         <div class="anime-card-status "><a class='font-important'
-                        style='font-size:11px'  href="{% url 'anime' slug=i.url_anime %}">{{i.anime_state.name}}</a>
+                        style='font-size:11px'  href="{% url 'ht' name='anime-state' slug=i.anime_state.name %}">{{i.anime_state.name}}</a>
                         </div>     
                 </div>
                 <div class="anime-card-details">
@@ -38,7 +38,7 @@
                     <div class="anime-card-title" title="{{i.title}}" data-toggle="popover" data-trigger="hover"
                         >
                         <h3 ><a href="{% url 'anime' slug=i.url_anime %}" >{{i.title}}</a></h3>
-                        <h4><a a style="color:#969696;" href="{% url 'anime' slug=i.url_anime %}">{{i.anime_date.name}}</a></h4>
+                        <h4><a a style="color:#969696;" href="{% url 'ht' name='anime-season' slug=i.url_date %}">{{i.anime_date.name}}</a></h4>
                                         
                 </div>
             </div>

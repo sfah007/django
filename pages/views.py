@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import redirect, render, get_object_or_404
 from .models import AnimeDays, AnimeState, AnimeClass, AnimeDate, AnimeType, Anime, Episodes
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 # Create your views here.
@@ -7,19 +7,18 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 def index(request):
     episodes = Episodes.objects.all()
-    animes = Anime.objects.all()
+    animes = Anime.objects.all()[:24]
 
     for anime in animes:
         anime.url_anime = anime.name.replace(' ','-')
         anime.title = anime.name.title()
+        anime.url_date = anime.anime_date.name.replace(' ', '-')
 
     for episode in episodes:
         episode.name.number_episodes = episode.name.name.replace(' ', '-')
         episode.name.episode_date = episode.name.name.title()
 
 
-
-   
 
     x = {
         'episodes': episodes,
@@ -72,6 +71,7 @@ def list_anime(request):
     for anime in page:
         anime.url_anime = anime.name.replace(' ','-')
         anime.title = anime.name.title()
+        anime.url_date = anime.anime_date.name.replace(' ', '-')
 
     for i in anime_class:
         i.url_anime = i.name.replace(' ', '-')
@@ -156,7 +156,7 @@ def ht(request, slug, name):
         for anime in page:
             anime.url_anime = anime.name.replace(' ','-')
             anime.title = anime.name.title()
-        
+            anime.url_date = anime.anime_date.name.replace(' ', '-')
         
 
         for i in anime_class:
@@ -276,6 +276,7 @@ def search(request):
     for anime in page:
         anime.url_anime = anime.name.replace(' ','-')
         anime.title = anime.name.title()
+        anime.url_date = anime.anime_date.name.replace(' ', '-')
 
     for i in anime_class:
         i.url_anime = i.name.replace(' ', '-')
@@ -313,6 +314,7 @@ def days_anime(request):
         for x in i.animes:
             x.title = x.name.title()
             x.url = x.name.replace(' ', '-')
+            x.url_date = x.anime_date.name.replace(' ', '-')
 
 
     x = {
@@ -320,3 +322,6 @@ def days_anime(request):
     }
 
     return render(request, 'pages/days_anime.html', x)
+
+def page_reset(request):
+    return redirect('index')

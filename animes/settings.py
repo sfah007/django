@@ -27,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-1+i)d+6ef-i^d&nsgn0vf$=(zv%74!jv&#_a@fvjim1#fmhb!%'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['hamza-animes.herokuapp.com', '*']
 
@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'import_export',
     'corsheaders',
-    'storages'
+    'storages',
 ]
 
 MIDDLEWARE = [

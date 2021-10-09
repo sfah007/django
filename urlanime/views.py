@@ -77,4 +77,7 @@ def error404(request, exception):
     return render(request, 'pages/error404.html')
 
 def error500(request, *args, **argv):
-    return render(request, 'pages/error404.html')
+    return render(request, 'errors/error500.html')
+    
+def error403(request, *args, **argv):
+    return render(request, 'errors/error403.html')

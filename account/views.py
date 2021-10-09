@@ -62,11 +62,11 @@ def register(request):
             password1 = request.POST['password1']
             password2 = request.POST['password2']
 
-            val_user = username
-            val_email = email
             val_pass1 = password1
             val_pass2 = password2
-            
+            val_user = username
+            val_email = email
+
             if username and email and password1 and password2 :
                 if User.objects.filter(username=username).exists():
                     error = 'اسم المستخدم موجود مسبقاً'
@@ -87,6 +87,8 @@ def register(request):
                             }
                             
                             return render(request, 'account/register.html', x)
+            else:
+                error = 'حقل فارغ' 
                         
         
 
@@ -111,21 +113,22 @@ def login(request):
             username = request.POST['username']
             password = request.POST['password']
 
-            user = auth.authenticate(username=username, password=password)
-            
+            if username and password:
 
-            if UsersBack.objects.filter(user=user, is_active=False).exists():
-                    error = 'المرجو تفعيل حسابك'
-            else:
-                if user is not None:
-                        
-                    auth.login(request, user)
-                    return redirect('index')
-                else:
-                    error = 'اسم المستخدم او كلمة المرور غير صحيحة'
+                user = auth.authenticate(username=username, password=password)
                 
 
-
+                if UsersBack.objects.filter(user=user, is_active=False).exists():
+                        error = 'المرجو تفعيل حسابك'
+                else:
+                    if user is not None:
+                            
+                        auth.login(request, user)
+                        return redirect('index')
+                    else:
+                        error = 'اسم المستخدم او كلمة المرور غير صحيحة'
+            else:
+                error = 'حقل فارغ' 
         x = {
             'form': form,
             'error': error,

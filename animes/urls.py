@@ -32,4 +32,5 @@ urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 handler404 = 'urlanime.views.error404'
+handler403 = 'urlanime.views.error403'
 handler500 = 'urlanime.views.error500'

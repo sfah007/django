@@ -63,6 +63,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+CSRF_FAILURE_VIEW = 'urlanime.views.error403'
 
 ROOT_URLCONF = 'animes.urls'
 

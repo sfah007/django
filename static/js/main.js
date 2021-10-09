@@ -36,7 +36,6 @@ function bodyClick(e){
         def = btn
     }
 
-    vr('.search-out').classList.add('ds-none')
 
     
 }
@@ -46,32 +45,7 @@ vr('#label-search-navbar').onclick = function (){
 }
 
 
-    
-vr('#search-input-navbar').onkeyup = function(){
-    inp = vr('#search-input-navbar');
-    value = inp.value.toLowerCase()
-    
-    p = vt('.search-text')
-    v = vr('.search-out')
-
-    
-   
-
-    if (value.length > 1){
-        v.classList.remove('ds-none')
-        for(i=0; i<p.length;i++){
-            if (p[i].innerHTML.toLowerCase().indexOf(value) == -1){
-                p[i].classList.add('ds-none')
-            }
-            else{
-                p[i].classList.remove('ds-none')
-            }
-        }
-    }
-    else{
-        v.classList.add('ds-none')
-    }
-}
+ 
 
 
 

@@ -33,7 +33,6 @@
                                     class="vd"
                                     controls
                                     preload="auto"
-                                    poster="{{episode.name.image_anime.url}}"
                                     data-setup="{}">
                                     <source src="{% if episode.type_episode == 'video' %}{{episode.video.url}} {% elif episode.type_episode == 'url' %}{{episode.url}}{% endif %}" type="video/mp4"></source>
                                 </video>

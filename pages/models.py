@@ -102,7 +102,7 @@ class Episodes(models.Model):
     )
 
     name = models.ForeignKey(Anime, on_delete=models.CASCADE)
-    episode = models.CharField( max_length=50, unique=True)
+    episode = models.CharField( max_length=50)
     type_episode = models.CharField(blank=True, choices=choices, max_length=50) 
     type_html = models.CharField(blank=True, choices=choices_html, max_length=50) 
     url = models.URLField( max_length=200, default='', blank=True)

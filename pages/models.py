@@ -66,9 +66,7 @@ class Anime(models.Model):
 
     story = models.TextField( default='')
 
-    image_anime = models.ImageField( upload_to='photos/anime/%Y/%m/%d', default='')
-
-    image_episode = models.ImageField( upload_to='photos/anime/%Y/%m/%d', default='')
+    image_anime = models.ImageField( upload_to='photos/anime', default='')
 
     anime_type = models.ForeignKey(AnimeType, on_delete=models.CASCADE)
 

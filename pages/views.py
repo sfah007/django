@@ -6,7 +6,7 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 
 def index(request):
-    episodes = Episodes.objects.all()
+    episodes = Episodes.objects.all()[:24]
     animes = Anime.objects.all()[:24]
 
     for anime in animes:

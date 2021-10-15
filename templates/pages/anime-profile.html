@@ -91,13 +91,13 @@
         <p class="anime-story">{{anime.story}}</p>
       </div>
       <!--tabs-->
-    <div class="anime-container-navigation-head">     
+    <div class="anime-container-navigation-head ">     
         <ul class="nav nav-pills nav-justified">
             <li class="active"><a data-toggle="pill" href="#episodes">حلقات الأنمي</a></li>
             
         </ul>
     </div>
-    <div class="anime-container-navigation-head">     
+    <div class="anime-container-navigation-head scrollable-menu"  style='max-height:800px !important'>     
             <div class="tab-content">
                 <div id="episodes" class="tab-pane fade in active">
                 <div class="main-didget-head">
@@ -111,7 +111,7 @@
             <div class="main-widget-body">
             <div class="space"></div>
             <div class="space"></div>
-                <div class="episodes-list-content">
+                <div class="episodes-list-content ">
                                     <div class="row display-flex" id="DivEpisodesList">
                      
                         {% for episode in episodes  %}

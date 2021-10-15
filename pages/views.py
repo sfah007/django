@@ -40,6 +40,34 @@ def list_anime(request):
     anime_class = AnimeClass.objects.all()
     animes = Anime.objects.all()
 
+    
+    res = {}
+    out = list(anime_date)
+    ln = len(out)
+    for i in range(ln):
+        t = []
+        for x in out[ln-1-i].name:
+            if x.isdigit():
+                t.append(x)
+        t = int(''.join(t))
+        if t in res:
+            res[t].append(out[ln-1-i])
+        else:
+            res[t] = [out[ln-1-i]]
+    
+    anime_date = []
+    num = []
+    for i in res:
+        num.append(i)
+    
+    num = sorted(num)
+    for i in num:
+        ln = len(res[i])
+        
+        for x in range(ln):
+            anime_date.append(res[i][ln-1-x])
+        
+
 
     if request.method == 'GET':
         if 'page' in request.GET:
@@ -106,6 +134,32 @@ def ht(request, name, slug):
         anime_date = AnimeDate.objects.all()
         anime_class = AnimeClass.objects.all()
         animes = Anime.objects.all()
+
+        res = {}
+        out = list(anime_date)
+        ln = len(out)
+        for i in range(ln):
+            t = []
+            for x in out[ln-1-i].name:
+                if x.isdigit():
+                    t.append(x)
+            t = int(''.join(t))
+            if t in res:
+                res[t].append(out[ln-1-i])
+            else:
+                res[t] = [out[ln-1-i]]
+        
+        anime_date = []
+        num = []
+        for i in res:
+            num.append(i)
+        
+        num = sorted(num)
+        for i in num:
+            ln = len(res[i])
+            
+            for x in range(ln):
+                anime_date.append(res[i][ln-1-x])
         
         if name == 'anime-state':
             cls = get_object_or_404(AnimeState, name=slug.replace('-', ' '))
@@ -245,6 +299,32 @@ def search(request):
     animes = Anime.objects.all()
     search = 'hide'
     sr = ''
+
+    res = {}
+    out = list(anime_date)
+    ln = len(out)
+    for i in range(ln):
+        t = []
+        for x in out[ln-1-i].name:
+            if x.isdigit():
+                t.append(x)
+        t = int(''.join(t))
+        if t in res:
+            res[t].append(out[ln-1-i])
+        else:
+            res[t] = [out[ln-1-i]]
+    
+    anime_date = []
+    num = []
+    for i in res:
+        num.append(i)
+    
+    num = sorted(num)
+    for i in num:
+        ln = len(res[i])
+        
+        for x in range(ln):
+            anime_date.append(res[i][ln-1-x])
 
     if request.method == 'GET':
         if 'page' in request.GET:

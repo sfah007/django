@@ -46,7 +46,7 @@ class AnimeDate(models.Model):
     publish_date = models.DateTimeField( default=timezone.now )
 
     class Meta:
-        ordering = ['publish_date']
+        ordering = ['-name']
 
     def __str__(self):
         return self.name

@@ -80,7 +80,7 @@
                   <ul class="anime-genres">
                         {% for i in class  %}
 
-                        <li><a href="https://animelek.me/anime-genre/%D8%A3%D9%83%D8%B4%D9%86/">{{i}}</a></li>
+                        <li><a href="{% url 'ht' name='anime-genre' slug=i.url_genre %}">{{i.name}}</a></li>
                         {% endfor %}
 
 

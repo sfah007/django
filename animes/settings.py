@@ -100,7 +100,7 @@ DATABASES = {
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'anime',
+        'NAME': 'animes',
         'USER': 'postgres',
         'PORT': '5432',
         'HOST': 'localhost',

@@ -17,14 +17,15 @@ def anime(request, slug):
     for i in episodes:
         i.video = i.name.name.replace(' ','-')
 
-    animes = Anime.objects.all()
-    for i in animes:
-        i.url_anime = i.name.replace(' ','-')
-        i.title = i.name.title()
+    genre = anime.anime_class.all() 
+    for i in genre:
+        i.url_genre = i.name.replace(' ','-')
+
+
 
     x = {
         'anime' : anime,
-        'class' : anime.anime_class.all(),
+        'class' : genre,
         'title' : anime.name.title(),
         'episodes': episodes,
         'class_fav': class_fav,
@@ -42,18 +43,21 @@ def watch(request, slug, eps_num):
 
     episodes = Episodes.objects.filter(name=anime).order_by('episode')
 
-
     episode = Episodes.objects.get(name=anime, episode=str(eps_num))
+    
     m = 'hide'
     n = 'hide'
+    
+    nex = episodes.filter(episode__gte=int(eps_num))
+    prvg = episodes.filter(episode__lte=int(eps_num))
 
-    if episodes.filter(episode=str(int(eps_num)-1)).exists():
-        m = episodes.get(episode=str(int(eps_num)-1))
-        m.url_anime = m.name.name.replace(' ','-')
-
-    if episodes.filter(episode=str(int(eps_num)+1)).exists():
-        n = episodes.get(episode=str(int(eps_num)+1))
+    if len(nex) > 1:
+        n = nex[1]
         n.url_anime = n.name.name.replace(' ','-')
+    
+    if len(prvg) > 1:
+        m = list(prvg)[-2]
+        m.url_anime = m.name.name.replace(' ','-')
 
     
     animes = Anime.objects.all()

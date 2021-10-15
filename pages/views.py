@@ -98,7 +98,7 @@ def list_anime(request):
     return render(request, 'pages/list-anime.html', x)
 
 # anime-genre ... => ht
-def ht(request, slug, name):
+def ht(request, name, slug):
     if name == 'anime-genre' or name == 'anime-state' or name == 'anime-type' or name == 'anime-season':
         s = 1
         anime_type = AnimeType.objects.all()
@@ -108,25 +108,25 @@ def ht(request, slug, name):
         animes = Anime.objects.all()
         
         if name == 'anime-state':
-            cls = AnimeState.objects.get(name=slug.replace('-', ' '))
+            cls = get_object_or_404(AnimeState, name=slug.replace('-', ' '))
             animes = animes.filter(anime_state=cls)
 
             title = f'حالة الأنمي [ {cls.name} ]'
             
         
         elif name == 'anime-genre':
-            cls = AnimeClass.objects.get(name=slug.replace('-', ' '))
+            cls = get_object_or_404(AnimeClass, name=slug.replace('-', ' '))
             animes = animes.filter(anime_class=cls)
 
             title = f'تصنيف الأنمي [ {cls.name} ]'
 
         elif name == 'anime-type':
-            cls = AnimeType.objects.get(name=slug.replace('-', ' '))
+            cls = get_object_or_404(AnimeType, name=slug.replace('-', ' '))
             animes = animes.filter(anime_type=cls)
             title = f'نوع الأنمي [ {cls.name} ]'
 
         elif name == 'anime-season':
-            cls = AnimeDate.objects.get(name=slug.replace('-', ' '))
+            cls = get_object_or_404(AnimeDate, name=slug.replace('-', ' '))
             animes = animes.filter(anime_date=cls)
 
             title = f'الموسم [ {cls.name} ]'

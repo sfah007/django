@@ -43,11 +43,3 @@ function bodyClick(e){
 vr('#label-search-navbar').onclick = function (){
     vr('#search-navbar').classList.toggle('ds-none-2')      
 }
-
-
- 
-
-
-
-
-

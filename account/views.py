@@ -57,17 +57,29 @@ def register(request):
         val_pass2 = ''
         error = None
         if request.method == "POST":
-            username = request.POST['username']
-            email = request.POST['email']
-            password1 = request.POST['password1']
-            password2 = request.POST['password2']
+            username = ''
+            email = ''
+            password1 = ''
+            password2 = ''
+            if 'username' in request.POST:
+                username = request.POST['username']
+
+            if 'email' in request.POST:
+                email = request.POST['email']
+
+            if 'password1' in request.POST:
+                password1 = request.POST['password1']
+
+            if 'password2' in request.POST:
+                password2 = request.POST['password2']
+            
 
             val_pass1 = password1
             val_pass2 = password2
             val_user = username
             val_email = email
 
-            if username and email and password1 and password2 :
+            if username and email and password1 and password2  :
                 if User.objects.filter(username=username).exists():
                     error = 'اسم المستخدم موجود مسبقاً'
                 else:
@@ -77,16 +89,25 @@ def register(request):
                         if password1 != password2:
                             error = 'كلمة المرور غير متطابقة'
                         else:
-                            cr_user = User.objects.create_user(username=username, email=email,password=password1)
-                            user_back = UsersBack(user=cr_user, is_active=False)
-                            user_back.save()  
+                            if email.find('@') < 6 or len(email) < 14:
+                                error = 'هناك خطأ في بريدك الإلكتروني'
+                            else:
+                                if email.find('@gmail.com') == -1:
+                                    error = 'نقبل فقط البريد الإلكتروني الخاص ب gmail'
+                                else:
+                                    if len(password1) < 8 or len(password2) < 8:
+                                        error = 'كلمة المرور أقل من 8 أحرف'
+                                    else:
+                                        cr_user = User.objects.create_user(username=username, email=email,password=password1)
+                                        user_back = UsersBack(user=cr_user, is_active=False)
+                                        user_back.save()  
                             
-                            send_message(cr_user, request) 
-                            x = {
-                                'message': 'تم إنشاء حسابك بنجاح. المرجو التحقق من بريدك الإلكتروني'
-                            }
-                            
-                            return render(request, 'account/register.html', x)
+                                        send_message(cr_user, request) 
+                                        x = {
+                                            'message': 'تم إنشاء حسابك بنجاح. المرجو التحقق من بريدك الإلكتروني'
+                                        }
+                                        
+                                        return render(request, 'account/register.html', x)
             else:
                 error = 'حقل فارغ' 
                         
@@ -98,7 +119,8 @@ def register(request):
             'email_value': val_email,
             'pass1_value': val_pass1,
             'pass2_value': val_pass2,
-            'register': True
+            'register': True,
+            'domain': get_current_site(request),
         }
 
         return render(request, 'account/register.html', x)
@@ -110,28 +132,32 @@ def login(request):
         error = None
         form = LoginForm()
         if request.method == "POST":
-            username = request.POST['username']
-            password = request.POST['password']
+            if 'username' in request.POST and 'password' in request.POST:
+                username = request.POST['username']
+                password = request.POST['password']
 
-            if username and password:
+                if username and password:
 
-                user = auth.authenticate(username=username, password=password)
-                
+                    user = auth.authenticate(username=username, password=password)
+                    
 
-                if UsersBack.objects.filter(user=user, is_active=False).exists():
-                        error = 'المرجو تفعيل حسابك'
-                else:
-                    if user is not None:
-                            
-                        auth.login(request, user)
-                        return redirect('index')
+                    if UsersBack.objects.filter(user=user, is_active=False).exists():
+                            error = 'المرجو تفعيل حسابك'
                     else:
-                        error = 'اسم المستخدم او كلمة المرور غير صحيحة'
+                        if user is not None:
+                                
+                            auth.login(request, user)
+                            return redirect('index')
+                        else:
+                            error = 'اسم المستخدم او كلمة المرور غير صحيحة'
+                else:
+                    error = 'حقل فارغ' 
             else:
-                error = 'حقل فارغ' 
+                error = 'حقل فارغ'
         x = {
             'form': form,
             'error': error,
+            'domain': get_current_site(request),
         }
 
         return render(request, 'account/login.html', x)
@@ -190,6 +216,7 @@ def animes_favorites(request):
         x = {
             'title': title,
             'page': page,
+            'domain': get_current_site(request),
         }    
         
         return render(request, 'account/animes-favorites.html', x)

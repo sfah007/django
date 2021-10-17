@@ -1,10 +1,12 @@
 from django.shortcuts import render
 from pages.models import Anime, Episodes
 from account.models import *
+from django.contrib.sites.shortcuts import get_current_site
 # Create your views here.
 def anime(request, slug):
     if not Anime.objects.filter(name=slug.replace('-',' ')).exists():
         return render(request, 'pages/error404.html') 
+    domain = get_current_site(request)
     class_fav = ''
     anime = Anime.objects.get(name=slug.replace('-',' '))
     anime.url_anime = anime.name.replace(' ','-')
@@ -29,6 +31,7 @@ def anime(request, slug):
         'title' : anime.name.title(),
         'episodes': episodes,
         'class_fav': class_fav,
+        'domain': domain,
     }
 
     return render(request, 'pages/anime-profile.html', x)
@@ -36,7 +39,7 @@ def anime(request, slug):
 def watch(request, slug, eps_num):
     if not Anime.objects.filter(name=slug.replace('-', ' ')).exists():
         return render(request, 'pages/error404.html')
-
+    domain = get_current_site(request)
     anime = Anime.objects.get(name=slug.replace('-',' '))
     if not Episodes.objects.filter(name=anime, episode=str(eps_num)).exists():
         return render(request, 'pages/error404.html')
@@ -44,6 +47,7 @@ def watch(request, slug, eps_num):
     episodes = Episodes.objects.filter(name=anime).order_by('episode')
 
     episode = Episodes.objects.get(name=anime, episode=str(eps_num))
+    episode.title = episode.name.name.title()
     
     m = 'hide'
     n = 'hide'
@@ -59,11 +63,6 @@ def watch(request, slug, eps_num):
         m = list(prvg)[-2]
         m.url_anime = m.name.name.replace(' ','-')
 
-    
-    animes = Anime.objects.all()
-    for i in animes:
-        i.url_anime = i.name.replace(' ','-')
-        i.title = i.name.title()
 
     for i in episodes:
         i.url_anime = i.name.name.replace(' ','-')
@@ -71,9 +70,9 @@ def watch(request, slug, eps_num):
     x = {
         'episode': episode,
         'episodes': episodes,
-        'animes_search': animes,
         'prv_hide': m,
         'next_hide': n,
+        'domain': domain,
     }
     return render(request, 'pages/watch.html', x)
 

@@ -2,7 +2,7 @@ from django.shortcuts import redirect, render, get_object_or_404
 from .models import AnimeDays, AnimeState, AnimeClass, AnimeDate, AnimeType, Anime, Episodes
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 # Create your views here.
-
+from django.contrib.sites.shortcuts import get_current_site
 
 
 def index(request):
@@ -23,6 +23,7 @@ def index(request):
     x = {
         'episodes': episodes,
         'animes_search': animes,
+        'domain': get_current_site(request),
     }
 
     return render(request, 'pages/index.html', x)
@@ -120,6 +121,7 @@ def list_anime(request):
         'anime_date': anime_date,
         'anime_class': anime_class,
         'page': page,
+        'urlpath': f'قائمة افلام وانميات  مترجمة اون لاين',
     }
 
 
@@ -160,27 +162,31 @@ def ht(request, name, slug):
             
             for x in range(ln):
                 anime_date.append(res[i][ln-1-x])
-        
+        slug_rep = slug.replace('-', ' ')
         if name == 'anime-state':
-            cls = get_object_or_404(AnimeState, name=slug.replace('-', ' '))
+            cls = get_object_or_404(AnimeState, name=slug_rep)
+            urlpath = f'{slug_rep}'
             animes = animes.filter(anime_state=cls)
 
             title = f'حالة الأنمي [ {cls.name} ]'
             
         
         elif name == 'anime-genre':
-            cls = get_object_or_404(AnimeClass, name=slug.replace('-', ' '))
+            cls = get_object_or_404(AnimeClass, name=slug_rep)
+            urlpath = f'{slug_rep}'
             animes = animes.filter(anime_class=cls)
 
             title = f'تصنيف الأنمي [ {cls.name} ]'
 
         elif name == 'anime-type':
-            cls = get_object_or_404(AnimeType, name=slug.replace('-', ' '))
+            cls = get_object_or_404(AnimeType, name=slug_rep)
+            urlpath = f'{slug_rep}'
             animes = animes.filter(anime_type=cls)
             title = f'نوع الأنمي [ {cls.name} ]'
 
         elif name == 'anime-season':
-            cls = get_object_or_404(AnimeDate, name=slug.replace('-', ' '))
+            cls = get_object_or_404(AnimeDate, name=slug_rep)
+            urlpath = f'موسم {slug_rep}'
             animes = animes.filter(anime_date=cls)
 
             title = f'الموسم [ {cls.name} ]'
@@ -233,6 +239,9 @@ def ht(request, name, slug):
             'anime_date': anime_date,
             'anime_class': anime_class,
             'page': page,
+            'urlpath': f'قائمة افلام وانميات {urlpath} مترجمة اون لاين',
+            'domain': get_current_site(request)
+
         }
 
         
@@ -334,7 +343,7 @@ def search(request):
             search = 'show'
             title = f'نتائج البحث عن [ {sr} ]'
             animes = animes.filter(name__icontains=sr)
-            sr = sr.replace(' ', '+')
+            #sr = sr.replace(' ', '+')
             
     paginator = Paginator(animes, 24)
 
@@ -378,7 +387,9 @@ def search(request):
         'anime_class': anime_class,
         'page': page,
         'search': search,
-        'search_text': sr
+        'search_text': sr.replace(' ','+'),
+        'domain': get_current_site(request),
+        'urlpath': f'نتائج البحث عن {sr}',
     }
 
 
@@ -399,6 +410,7 @@ def days_anime(request):
 
     x = {
         'days': days,
+        'domain': get_current_site(request),
     }
 
     return render(request, 'pages/days_anime.html', x)

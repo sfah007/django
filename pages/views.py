@@ -390,6 +390,7 @@ def search(request):
         'search_text': sr.replace(' ','+'),
         'domain': get_current_site(request),
         'urlpath': f'نتائج البحث عن {sr}',
+        'domain': get_current_site(request),
     }
 
 

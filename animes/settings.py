@@ -176,3 +176,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #django_heroku.settings(locals())
 if os.getcwd() == '/app':
     DEBUG = False
+    SECURE_PROXY_SSL_HEADER =  ('HTTP_X_FORWARDED_PROTO', 'https')
+    SECURE_SSL_REDIRECT =  True

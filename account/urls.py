@@ -12,5 +12,7 @@ urlpatterns = [
     path('animes-favorite/', views.animes_favorites, name='animes-favorite'),
     path('تم-مشاهدتها/add/<str:name>/', views.done_show_check, name='done_show_add'),
     path('تم-مشاهدتها/', views.done_show_views, name='done_show'),
+    path('أرغب-بمشاهدتها/add/<str:name>/', views.want_show_check, name='want_show_add'),
+    path('أرغب-بمشاهدتها/', views.want_show_views, name='want_show'),
     path('activate-user/<uidb64>/<token>/', views.activate, name='activate'),
 ]

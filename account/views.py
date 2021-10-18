@@ -281,6 +281,60 @@ def done_show_views(request):
     else:
         return redirect('login')
 
+def want_show_check(request, name):
+    anime = get_object_or_404(Anime, name=name.replace('-', ' '))
+    if request.user.is_authenticated and not request.user.is_anonymous :
+        want = want_show.objects.get(user=request.user)
+        if want_show.objects.filter(user=request.user, animes=anime).exists():
+            want.animes.remove(anime)
+        else:
+            want.animes.add(anime)
+        
+        return redirect(f'/anime/{name}/')
+    else:
+        return redirect('login')
+
+def want_show_views(request):
+    if request.user.is_authenticated and not request.user.is_anonymous :
+        title = 'أرغب بمشاهدته'
+        s = 1
+        if request.method == 'GET':
+            if 'page' in request.GET:
+                s = request.GET['page']
+        user_back = get_object_or_404(want_show, user=request.user)
+        paginator = Paginator(user_back.animes.all(), 24)
+
+        
+        try:
+            page = paginator.page(s)
+        except PageNotAnInteger:
+            page = paginator.page(1)
+        except EmptyPage:
+            page = paginator.page(paginator.num_pages)
+
+        if page.number <= 1:
+            page.range = range(page.number, paginator.num_pages+1)[:3]
+        elif page.number == 2:
+            page.range = range(page.number-1, paginator.num_pages+1)[:4]
+        else:
+            page.range = range(page.number-2, paginator.num_pages+1)[:5]
+
+        for i in page:
+            i.title = i.name.title()
+            i.url_anime = i.name.replace(' ', '-')
+            i.url_date = i.anime_date.name.replace(' ', '-')
+            
+
+        x = {
+            'title': title,
+            'page': page,
+            'domain': get_current_site(request),
+        }    
+        
+        return render(request, 'account/animes-favorites.html', x)
+    else:
+        return redirect('login')
+
 def activate(request, uidb64, token):
     
     try:
@@ -294,5 +348,6 @@ def activate(request, uidb64, token):
         user_back.is_active = True
         user_back.save()
         done = done_show(user=user).save() 
+        wany = want_show(user=user).save() 
         auth.login(request, user)
         return redirect('index')

@@ -10,3 +10,7 @@ class AnimeAdmin(ImportExportModelAdmin):
 @admin.register(done_show)
 class AnimeAdmin(ImportExportModelAdmin):
     pass
+
+@admin.register(want_show)
+class AnimeAdmin(ImportExportModelAdmin):
+    pass

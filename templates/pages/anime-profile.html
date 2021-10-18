@@ -38,6 +38,10 @@
                     <li ><a class="{{class_done}} addtous" href="{% url 'done_show_add' name=anime.url_anime %}" id='heart' data-toggle="tooltip" data-placement="top" title="تم مشاهدتها">
                             <i class="fa fa-eye" aria-hidden="true"></i></a>
                     </li>
+
+                    <li ><a class="{{class_want}} addtous" href="{% url 'want_show_add' name=anime.url_anime %}" id='heart' data-toggle="tooltip" data-placement="top" title="أرغب بمشاهدته">
+                            <i class="fa fa-clock" aria-hidden="true"></i>
+                    </li>
                    
                     
                             </ul>

@@ -11,10 +11,12 @@ def anime(request, slug):
     anime = Anime.objects.get(name=slug.replace('-',' '))
     anime.url_anime = anime.name.replace(' ','-')
     episodes = Episodes.objects.filter(name=anime).order_by('episode')
-
+    class_done = ''
     if request.user.is_authenticated:
         if UsersBack.objects.filter(user=request.user, animes_fav=anime):
             class_fav = 'favorite'
+        if done_show.objects.filter(user=request.user, animes=anime).exists():
+            class_done = 'favorite'
 
     for i in episodes:
         i.video = i.name.name.replace(' ','-')
@@ -31,6 +33,7 @@ def anime(request, slug):
         'title' : anime.name.title(),
         'episodes': episodes,
         'class_fav': class_fav,
+        'class_done': class_done,
         'domain': domain,
     }
 

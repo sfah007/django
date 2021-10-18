@@ -32,7 +32,11 @@
             <div class="user-action">
             <ul>
                                     <li ><a class="{{class_fav}} addtous" href="{% url 'animes-favorite_check' name=anime.url_anime %}" id='heart' data-toggle="tooltip" data-placement="top" title="إضافة للمفضلة">
-                            <i class="fa fa-heart" ></i></a>
+                            <i class="fa fa-heart" ></i>
+                    </li>
+
+                    <li ><a class="{{class_done}} addtous" href="{% url 'done_show_add' name=anime.url_anime %}" id='heart' data-toggle="tooltip" data-placement="top" title="تم مشاهدتها">
+                            <i class="fa fa-eye" aria-hidden="true"></i></a>
                     </li>
                    
                     
@@ -41,14 +45,14 @@
          <hr>   
           <div class="full-list-info">
             <small>النوع</small>
-            <small>
+            <small><a href="{% url 'ht' name='anime-type' slug=anime.anime_type.name %}">
                 {% if anime.anime_type.name == 'تلفزيون' %}
                     TV
 
                 {% else %}
                 {{anime.anime_type.name}}
                 {% endif %}
-
+                </a>
             </small>
           </div>
           <div class="full-list-info">
@@ -63,7 +67,7 @@
           {% endif %}
           <div class="full-list-info">
             <small>حالة الأنمي</small>
-            <small>{{anime.anime_state.name}}</small>
+            <small><a href="{% url 'ht' name='anime-state' slug=anime.anime_state.name %}">{{anime.anime_state.name}}</a></small>
           </div>
           <div class="full-list-info">
             <small>عدد الحلقات</small>
@@ -72,7 +76,7 @@
           </div>
           <div class="full-list-info">
             <small>الموسم</small>
-            <small>{{anime.anime_date.name}}</small>
+            <small><a href="{% url 'ht' name='anime-season' slug=anime.anime_date.name %}">{{anime.anime_date.name}}</a></small>
           </div> 
           <div class="full-list-info">
             <small>مدة الحلقة</small>

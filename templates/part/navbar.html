@@ -39,6 +39,9 @@
                         </button>
                         <ul class="dropdown-menu scrollable-menu" id="drop5" role="menu" aria-labelledby="genresDropdown">
                             <li role="presentation" class='presentation'>
+                                <a class="presentation-link" href="{% url 'done_show'%}">انميات تم مشاهدتها</a>
+                            </li>
+                            <li role="presentation" class='presentation'>
                                 <a class="presentation-link" href="{% url 'animes-favorite'%}">انمياتي المفضلة</a>
                             </li>
                             <li role="presentation" class='presentation'>
@@ -71,10 +74,6 @@
                     <input type="text" name="s" placeholder="بحث" class="form-control search-input"
                            id='search-input-navbar' 
                            value="">
-
-                   
-
-
                     </form>
             </div>
             

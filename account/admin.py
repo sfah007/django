@@ -6,3 +6,7 @@ from .models import *
 @admin.register(UsersBack)
 class AnimeAdmin(ImportExportModelAdmin):
     pass
+
+@admin.register(done_show)
+class AnimeAdmin(ImportExportModelAdmin):
+    pass

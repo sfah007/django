@@ -54,13 +54,13 @@
                                     {% if prv_hide != 'hide' %}
                                         
                                             <i class="fa fa-forward"></i> 
-                                            <a href="{% url 'watch' slug=prv_hide.url_anime eps_num=prv_hide.episode %}">الحلقة السابقة</a>
+                                            <a href="{% url 'watch' slug=prv_hide.url_anime  %}">الحلقة السابقة</a>
                                         
                                     {% endif %}
                                 </div>
                                 <div>
                                     {% if next_hide != 'hide' %}
-                                        <a href="{% url 'watch' slug=next_hide.url_anime eps_num=next_hide.episode %}">الحلقة التالية</a>
+                                        <a href="{% url 'watch' slug=next_hide.url_anime  %}">الحلقة التالية</a>
                                         <i class="fa fa-backward"></i> 
                                     {% endif %}
                                     
@@ -88,7 +88,7 @@
                                         {% for i in episodes %}
 
                                             <li>
-                                                <a href="{% url 'watch' slug=i.url_anime eps_num=i.episode %}">الحلقة
+                                                <a href="{% url 'watch' slug=i.url_anime %}">الحلقة
                                                 <span class="num-es">{{i.episode}}</span>
                                                 </a>
                                             </li>

@@ -82,9 +82,8 @@
     align-items: center;
     justify-content: center;
 }
-.nav-mes p{
+.nav-mes span{
     color: white;
-    font-size: 13px;
 }
 
 /*  end header  */

@@ -3,20 +3,22 @@ from .models import AnimeDays, AnimeState, AnimeClass, AnimeDate, AnimeType, Ani
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 # Create your views here.
 from django.contrib.sites.shortcuts import get_current_site
-
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.utils.encoding import  force_bytes, force_str, force_text
 
 def index(request):
     episodes = Episodes.objects.all()[:24]
     animes = Anime.objects.all()[:24]
 
     for anime in animes:
-        anime.url_anime = anime.name.replace(' ','-')
+        anime.url_anime = urlsafe_base64_encode(force_bytes(anime.name))
         anime.title = anime.name.title()
         anime.url_date = anime.anime_date.name.replace(' ', '-')
 
     for episode in episodes:
-        episode.name.number_episodes = episode.name.name.replace(' ', '-')
+        episode.name.number_episodes = urlsafe_base64_encode(force_bytes(episode.pk))
         episode.name.episode_date = episode.name.name.title()
+        #episode.episode = urlsafe_base64_encode(force_bytes(str(episode.episode)))
 
 
 
@@ -98,7 +100,7 @@ def list_anime(request):
 
 
     for anime in page:
-        anime.url_anime = anime.name.replace(' ','-')
+        anime.url_anime = urlsafe_base64_encode(force_bytes(anime.name))
         anime.title = anime.name.title()
         anime.url_date = anime.anime_date.name.replace(' ', '-')
 
@@ -214,7 +216,7 @@ def ht(request, name, slug):
   
 
         for anime in page:
-            anime.url_anime = anime.name.replace(' ','-')
+            anime.url_anime = urlsafe_base64_encode(force_bytes(anime.name))
             anime.title = anime.name.title()
             anime.url_date = anime.anime_date.name.replace(' ', '-')
         
@@ -284,7 +286,7 @@ def episode(request):
 
     for i in page:
         i.name.episode_date = i.name.name.title()
-        i.name.number_episodes = i.name.name.replace(' ', '-')
+        i.name.number_episodes = urlsafe_base64_encode(force_bytes(i.pk))
 
     x = {
         'page': page,
@@ -363,7 +365,7 @@ def search(request):
 
 
     for anime in page:
-        anime.url_anime = anime.name.replace(' ','-')
+        anime.url_anime = urlsafe_base64_encode(force_bytes(anime.name))
         anime.title = anime.name.title()
         anime.url_date = anime.anime_date.name.replace(' ', '-')
 
@@ -397,7 +399,7 @@ def search(request):
     return render(request, 'pages/list-anime.html', x)
 
 def days_anime(request):
-    days = AnimeDays.objects.all()
+    days = AnimeDays.objects.all()[:7]
     state = AnimeState.objects.get(name='مستمر')
 
     for i in days:
@@ -405,7 +407,7 @@ def days_anime(request):
         i.animes = Anime.objects.filter(anime_days=i, anime_state=state)
         for x in i.animes:
             x.title = x.name.title()
-            x.url = x.name.replace(' ', '-')
+            x.url = urlsafe_base64_encode(force_bytes(x.name))
             x.url_date = x.anime_date.name.replace(' ', '-')
 
 

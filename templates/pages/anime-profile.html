@@ -82,18 +82,15 @@
             <small>الموسم</small>
             <small><a href="{% url 'ht' name='anime-season' slug=anime.anime_date.name %}">{{anime.anime_date.name}}</a></small>
           </div> 
-          <div class="full-list-info">
-            <small>مدة الحلقة</small>
-            <small>{{anime.episode_date}}</small>
-          </div>           
+                    
                                       
       </div>
     </div>
     <div class=" col-sm-9 ">
       <div class="anime-container-data">
-          <h1 class="anime-details-title" >{{title}}</h1>
-          <h2 class="anime-details-title">شاهد انمي {{title}} مترجم اون لاين   </h2>
-                    <h2 class="anime-details-title">{{title}} / {{anime.anime_date.name|slice:'-4:'}}</h2>
+          <div><h1 class="anime-details-title" style="direction:ltr; text-align: right;" >{{title}}</h1></div>
+          <h2 class="anime-details-title">شاهد انمي <p style="direction:ltr !important;display:inline-block">{{title}}</p> مترجم اون لاين   </h2>
+                    <h2 class="anime-details-title"><p style="direction:ltr !important;display:inline-block">{{title}}</p> / {{anime.anime_date.name|slice:'-4:'}}</h2>
                   <ul class="anime-genres">
                         {% for i in class  %}
 
@@ -141,17 +138,17 @@
                                         <img class="img-responsive"
                                             src="{{anime.image_anime.url}}"                                        
                                             alt="" />
-                                        <a href="{% url 'watch' slug=episode.video eps_num=episode.episode %}"
+                                        <a href="{% url 'watch' slug=episode.url_episode  %}"
                                             class="overlay"></a>
                                         <div class="play-button">
                                             <span >
-                                                <a href="{% url 'watch' slug=episode.video eps_num=episode.episode %}" class="overlay"><i class="fa fa-play"></i></a>
+                                                <a href="{% url 'watch' slug=episode.url_episode  %}" class="overlay"><i class="fa fa-play"></i></a>
                                             </span>
                                         </div>
                                     </div>
                                 </div>
                             <div class="ep-card-anime-title-detail">
-                                                                            <h3><a style="color:#969696;" href="{% url 'watch' slug=episode.video eps_num=episode.episode %}"> الحلقة <span class='num-es'>{{episode.episode}}</span></a></h3>
+                                                                            <h3><a style="color:#969696;" href="{% url 'watch' slug=episode.url_episode %}"> الحلقة <span class='num-es'>{{episode.episode}}</span></a></h3>
                                                                     </div>
                                 
                             </div>

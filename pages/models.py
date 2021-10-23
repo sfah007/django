@@ -62,7 +62,7 @@ class AnimeDays(models.Model):
         return self.name
 
 class Anime(models.Model):
-    name = models.CharField(unique=True, max_length=50)
+    name = models.CharField(unique=True, max_length=150)
 
     story = models.TextField( default='')
 
@@ -79,8 +79,6 @@ class Anime(models.Model):
     anime_class = models.ManyToManyField(AnimeClass)
 
     number_episodes = models.CharField( max_length=50)
-
-    episode_date = models.CharField( max_length=50)
 
     publish_date = models.DateTimeField( default=timezone.now )
 

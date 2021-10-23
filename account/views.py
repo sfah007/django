@@ -19,6 +19,7 @@ from .utils import generate_token
 from django.contrib import admin 
 from animes import urls
 from django.urls import path, include
+from django.http import Http404
 # Create your views here.
 
 def send_message(user,request):
@@ -170,15 +171,20 @@ def logout(request):
     return redirect('index')
 
 def animes_favorites_check(request, name):
-    anime = get_object_or_404(Anime, name=name.replace('-', ' '))
+    try:
+        anime = get_object_or_404(Anime, pk=force_text(urlsafe_base64_decode(name)))
+    except:
+        raise Http404
+
     if request.user.is_authenticated and not request.user.is_anonymous :
+        url = urlsafe_base64_encode(force_bytes(anime.name))
         user_back = UsersBack.objects.get(user=request.user)
         if UsersBack.objects.filter(user=request.user, animes_fav=anime).exists():
             user_back.animes_fav.remove(anime)
         else:
             user_back.animes_fav.add(anime)
         
-        return redirect(f'/anime/{name}/')
+        return redirect(f'/anime/{url}/')
     else:
         return redirect('login')
 
@@ -211,7 +217,7 @@ def animes_favorites(request):
 
         for i in page:
             i.title = i.name.title()
-            i.url_anime = i.name.replace(' ', '-')
+            i.url_anime = urlsafe_base64_encode(force_bytes(i.name))
             i.url_date = i.anime_date.name.replace(' ', '-')
             
 
@@ -227,15 +233,20 @@ def animes_favorites(request):
 
 
 def done_show_check(request, name):
-    anime = get_object_or_404(Anime, name=name.replace('-', ' '))
+    try:
+        anime = get_object_or_404(Anime, pk=force_text(urlsafe_base64_decode(name)))
+    except:
+        raise Http404
+
     if request.user.is_authenticated and not request.user.is_anonymous :
+        url = urlsafe_base64_encode(force_bytes(anime.name))
         done = done_show.objects.get(user=request.user)
         if done_show.objects.filter(user=request.user, animes=anime).exists():
             done.animes.remove(anime)
         else:
             done.animes.add(anime)
         
-        return redirect(f'/anime/{name}/')
+        return redirect(f'/anime/{url}/')
     else:
         return redirect('login')
 
@@ -267,7 +278,7 @@ def done_show_views(request):
 
         for i in page:
             i.title = i.name.title()
-            i.url_anime = i.name.replace(' ', '-')
+            i.url_anime = urlsafe_base64_encode(force_bytes(i.name))
             i.url_date = i.anime_date.name.replace(' ', '-')
             
 
@@ -282,15 +293,21 @@ def done_show_views(request):
         return redirect('login')
 
 def want_show_check(request, name):
-    anime = get_object_or_404(Anime, name=name.replace('-', ' '))
+    try:
+        name = force_text(urlsafe_base64_decode(name))
+        anime = get_object_or_404(Anime, pk=name)
+    except:
+        raise Http404
+
     if request.user.is_authenticated and not request.user.is_anonymous :
+        url = urlsafe_base64_encode(force_bytes(anime.name))
         want = want_show.objects.get(user=request.user)
         if want_show.objects.filter(user=request.user, animes=anime).exists():
             want.animes.remove(anime)
         else:
             want.animes.add(anime)
         
-        return redirect(f'/anime/{name}/')
+        return redirect(f'/anime/{url}/')
     else:
         return redirect('login')
 
@@ -321,7 +338,7 @@ def want_show_views(request):
 
         for i in page:
             i.title = i.name.title()
-            i.url_anime = i.name.replace(' ', '-')
+            i.url_anime = urlsafe_base64_encode(force_bytes(i.name))
             i.url_date = i.anime_date.name.replace(' ', '-')
             
 

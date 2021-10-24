@@ -1,4 +1,4 @@
 git init
 git add . 
 git commit -m "first commit"
-git push heroku main
+git push origin main

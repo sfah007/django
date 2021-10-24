@@ -1,2 +1,1 @@
-env\Scripts\activate
-python manage.py runserver
+env\Scripts\activate && python manage.py runserver

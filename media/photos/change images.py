@@ -102,7 +102,9 @@ def insert():
     conn.commit()
     max_id+=1
 
-insert()
+print(to(834))
+print(to(835))
+print(to(836))
 
         
 

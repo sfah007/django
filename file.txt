@@ -1,0 +1,10 @@
+anyjson
+django-admin-generator
+django-common-helpers
+django-cron
+django-crontab
+django-utils2
+python-utils
+pytz
+six
+sqlparse

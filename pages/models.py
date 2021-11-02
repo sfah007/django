@@ -1,3 +1,4 @@
+
 from django.db import models
 from django.db.models.base import Model
 from datetime import datetime
@@ -9,7 +10,7 @@ from django.core.validators import FileExtensionValidator
 
 # Create your models here.
 
-    
+
 
 class AnimeType(models.Model):
     name = models.CharField(unique=True, max_length=50)
@@ -26,7 +27,7 @@ class AnimeState(models.Model):
     name = models.CharField(unique=True, max_length=50)
     publish_date = models.DateTimeField( default=timezone.now )
 
-  
+
     def __str__(self):
         return self.name
 
@@ -40,16 +41,16 @@ class AnimeClass(models.Model):
 
     def __str__(self):
         return self.name
-    
+
 class AnimeDate(models.Model):
-    name = models.CharField(unique=True, max_length=50)
+    name = models.IntegerField(unique=True)
     publish_date = models.DateTimeField( default=timezone.now )
 
     class Meta:
-        ordering = ['-name']
+        ordering = ['name']
 
     def __str__(self):
-        return self.name
+        return f'{self.name}'
 
 class AnimeDays(models.Model):
     name = models.CharField(unique=True ,max_length=50)
@@ -101,8 +102,8 @@ class Episodes(models.Model):
 
     name = models.ForeignKey(Anime, on_delete=models.CASCADE)
     episode = models.IntegerField()
-    type_episode = models.CharField(blank=True, choices=choices, max_length=50) 
-    type_html = models.CharField(blank=True, choices=choices_html, max_length=50) 
+    type_episode = models.CharField(blank=True, choices=choices, max_length=50)
+    type_html = models.CharField(blank=True, choices=choices_html, max_length=50)
     url = models.URLField( max_length=200, default='', blank=True)
     video = models.FileField(blank=True, upload_to='video/anime/%Y/%m/%d', max_length=500, validators=[FileExtensionValidator(allowed_extensions=['MOV','avi','mp4','webm','mkv'])])
     publish_date = models.DateTimeField( default=timezone.now )

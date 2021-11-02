@@ -9,6 +9,7 @@ urlpatterns = [
     re_path(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}), 
     re_path(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}), 
     path('', views.index, name='index'),
+    path('edit-profile/', views.edit_profile, name='edit_profile'),
     path('admin/login/', views.page_reset, name='admin-login'),
     path('قائمة-الأنمي/', views.list_anime, name='list_anime'),
     path('categorie/<str:name>/<str:slug>/', views.ht, name='ht'),

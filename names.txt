@@ -1,0 +1,8 @@
+csrfmiddlewaretoken : tNTSwnpZXTUEYcwmZktguoGmwox9hataqgQAvZtrQk7qJaVA5iLfFHkOn6oXV9DJ
+username : hamzalahyane54@gmail.com
+bio : hamza lahyane
+social_github : http://127.0.0.1:8000/profile/
+social_instagram : sadsdas
+social_twitter : 
+social_website : https://www.pythonanywhere.com
+public : on

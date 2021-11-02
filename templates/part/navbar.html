@@ -48,6 +48,9 @@
                                 <a class="presentation-link" href="{% url 'animes-favorite'%}">انمياتي المفضلة</a>
                             </li>
                             <li role="presentation" class='presentation'>
+                                <a class="presentation-link" href="{% url 'account'%}">الملف الشخصي (Profile)</a>
+                            </li>
+                            <li role="presentation" class='presentation'>
                                 <a class="presentation-link" href="{% url 'logout'%}">تسجيل الخروج</a>
                             </li>                             
                 </ul>
@@ -71,8 +74,8 @@
         </ul>
 
         <div class="search-navbar-edit ds-none-2" id="search-navbar">
-            <div class="search-box">
-                <form action="{% url 'search' %}" method='GET'>
+            <div class="search-box" style="z-index:4;">
+                <form action="{% url 'search' %}" method='GET' >
                     <button type="submit" class="btn-search-edit"><i class="fa fa-search" aria-hidden="true"></i></button>
                     <input type="text" name="s" placeholder="بحث" class="form-control search-input"
                            id='search-input-navbar' 

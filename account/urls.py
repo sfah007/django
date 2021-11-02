@@ -6,7 +6,12 @@ from django.contrib.auth.views import *
 
 urlpatterns = [
     path('register/', views.register, name='register'),
+    path('', views.account, name='account'),
     path('login/', views.login, name='login'),
+    path('reset-password/', views.reset_password, name='reset_password'),
+    path('reset-password/<uidb64>/<token>/', views.reset_password_confirm, name="password_reset_confirm"),
+    path('user/<str:username>/', views.user_profile, name='user_profile'),
+    path('user/<str:username>/<str:inf>/', views.account_animes, name='account_animes'),
     path('logout/', views.logout, name='logout'),
     path('animes-favorite/<str:name>/', views.animes_favorites_check, name='animes-favorite_check'),
     path('animes-favorite/', views.animes_favorites, name='animes-favorite'),

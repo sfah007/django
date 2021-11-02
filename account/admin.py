@@ -7,10 +7,10 @@ from .models import *
 class AnimeAdmin(ImportExportModelAdmin):
     pass
 
-@admin.register(done_show)
+@admin.register(Tokens)
 class AnimeAdmin(ImportExportModelAdmin):
     pass
 
-@admin.register(want_show)
+@admin.register(Domain)
 class AnimeAdmin(ImportExportModelAdmin):
     pass

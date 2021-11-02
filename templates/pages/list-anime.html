@@ -1,3 +1,4 @@
+
 {% extends 'base.html' %}
 
 {% block head %}
@@ -17,7 +18,7 @@
 
 
 
-    
+
     <div class="main-section ">
         <div class="container">
             <h3 class="font-important">{{title}}</h3>
@@ -37,17 +38,17 @@
                                 data-toggle="dropdown" aria-expanded="true" >
                             تصنيف الأنمي <span class="caret"></span>
                         </button>
-                        
+
                             <ul class="dropdown-menu scrollable-menu" id="drop1" role="menu" aria-labelledby="genresDropdown">
                                     {% for class in anime_class  %}
                                         <li role="presentation">
                                             <a  href="{% url 'ht' name='anime-genre' slug=class.url_anime%}">{{class.name}}</a>
                                         </li>
                                     {% endfor %}
-                                    
-                                                                
+
+
                             </ul>
-                        
+
                     </div>
                 </li>
                 <li>
@@ -63,7 +64,7 @@
                                     <a href="{% url 'ht' name='anime-state' slug=state.url_anime %}">{{state}}</a>
                                 </li>
                                 {% endfor %}
-                                
+
                         </ul>
                     </div>
                 </li>
@@ -80,14 +81,14 @@
                                     <a href="{% url 'ht' name='anime-type' slug=type.url_anime %}">{{type}}</a>
                                 </li>
                             {% endfor %}
-                                                            
-                                            
+
+
                                                     </ul>
                     </div>
                 </li>
 
-                
-                    
+
+
                 <li>
                     <div class="dropdown" >
                         <button class="btn btn-default dropdown-toggle" type="button" id="seasonsDropdown"
@@ -98,11 +99,11 @@
 
                                 {% for date in anime_date  %}
                                     <li>
-                                        <a href="{% url 'ht' name='anime-season' slug=date.url_anime%}">{{date}}</a>
+                                        <a href="{% url 'ht' name='anime-season' slug=date.name%}">{{date.name}}</a>
                                     </li>
                                 {% endfor %}
-                                                           
-                                                            
+
+
                          </ul>
                     </div>
                 </li>
@@ -124,39 +125,40 @@
 
 <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 col-no-padding col-mobile-no-padding">
      <div class="anime-card-container">
-         <div class="anime-card-poster">
+         <div class="anime-card-poster" style="height:250px">
             <div class="hover ">
-                <img class="img-responsive"   
+                <img class="img-responsive"
+                    style="height:250px"
                      src="{{i.image_anime.url}}"
                      alt="{{i.title}}" />
                 <a href="{% url 'anime' slug=i.url_anime %}" class="overlay"></a>
                  <div class="play-button-extra">
                         <span ><a href="{% url 'anime' slug=i.url_anime %}" class="overlay"></a></span>
-                        
+
                         </div>
                     </div>
                     <div class="anime-card-status "><a class='font-important'
                         style='font-size:11px'  href="{% url 'ht' name='anime-state' slug=i.anime_state.name %}">{{i.anime_state.name}}</a>
-                    </div>     
+                    </div>
                     </div>
                     <div class="anime-card-details">
-                        
+
                         <div class="anime-card-title" title="{{i.title}}" data-toggle="popover" data-trigger="hover"
                             >
                             <h3 ><a href="{% url 'anime' slug=i.url_anime %}" >{{i.title}}</a></h3>
-                            <h4><a a style="color:#969696;" href="{% url 'ht' name='anime-season' slug=i.url_date %}">{{i.anime_date.name}}</a></h4>
-                                    
+                            <h4><a a style="color:#969696;" href="{% url 'ht' name='anime-season' slug=i.anime_date.name %}">{{i.anime_date.name}}</a></h4>
+
             </div>
         </div>
-    </div>                    
-</div>  
+    </div>
+</div>
 
 {% endfor %}
 </div>
-    </div>    
+    </div>
             <nav>
                 {% if page.paginator.num_pages > 1 %}
-                
+
                     <ul class="pagination">
                                 {% if page.has_previous %}
                                     <li class="page-item">
@@ -190,9 +192,9 @@
                                     </li>
                                 {% endif %}
                         </ul>
-                        
+
                 {% endif %}
-                        
+
     </nav>
 
     </div>
@@ -202,6 +204,6 @@
 
 
 
-        
-    
+
+
 

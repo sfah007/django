@@ -43,6 +43,17 @@ types = {
     'Movie': '10',
 }
 
+def to(n):
+    res = []
+
+    while n != 0:
+        if n%2 == 0:
+            res.append('0')
+        else:
+            res.append('1')
+        n = n//2
+        
+    return ''.join(res[::-1])
     
 
 def animes_inf():
@@ -119,10 +130,11 @@ def animes_inf():
         e_img = html.find('" class="thumbnail img-responsive"', s_img)
         image = html[s_img:e_img]
 
-        rimg = requests.get(image)
-        if r.status_code == 200:
-            with open(f"anime/{dt['url']}-anime.png", 'wb') as f:
-                f.write(r.content)
+        rimg = requests.get(image.strip(' '))
+        if rimg.status_code == 200:
+            nb = to(max_id_anime)
+            with open(f"anime/{nb}.png", 'wb') as f:
+                f.write(rimg.content)
 
         # type
         s_type = html.find(t_type, index)+ln_type

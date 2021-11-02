@@ -1,10 +1,16 @@
-from django.shortcuts import render, get_object_or_404
+
+from django.shortcuts import render, get_object_or_404, redirect
 from pages.models import Anime, Episodes
-from django.http import Http404
+from django.http import *
 from account.models import *
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import  force_bytes, force_str, force_text
+
+def ajaxx(request):
+    
+    return render(request, 'pages/error500.html')
+    return JsonResponse({'user': request.user})
 # Create your views here.
 def anime(request, slug):
     try:
@@ -13,19 +19,19 @@ def anime(request, slug):
         raise Http404
     
     domain = get_current_site(request)
-    class_fav = ''
+    class_fav = 'white'
     
     anime.url_anime = urlsafe_base64_encode(force_bytes(anime.pk))
     episodes = Episodes.objects.filter(name=anime).order_by('episode')
-    class_done = ''
-    class_want = '' 
+    class_done = 'white'
+    class_want = 'white' 
     
     if request.user.is_authenticated:
         if UsersBack.objects.filter(user=request.user, animes_fav=anime):
             class_fav = 'favorite'
-        if done_show.objects.filter(user=request.user, animes=anime).exists():
+        if UsersBack.objects.filter(user=request.user, animes_done=anime).exists():
             class_done = 'favorite'
-        if want_show.objects.filter(user=request.user, animes=anime).exists():
+        if UsersBack.objects.filter(user=request.user, animes_want=anime).exists():
             class_want = 'favorite'
 
     
@@ -90,6 +96,9 @@ def watch(request, slug):
     }
     return render(request, 'pages/watch.html', x)
 
+
+    
+    
 def error404(request, exception):
     return render(request, 'pages/error404.html')
 

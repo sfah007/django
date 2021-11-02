@@ -1,4 +1,2 @@
-git init
-git add . 
-git commit -m "first commit"
-git push origin main
+env\Scripts\activate && python manage.py makemigrations
+python manage.py migrate

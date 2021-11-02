@@ -84,7 +84,14 @@ def animelek(html):
         s_date = html.find('">', s_date)+2
         e_date = html.find("</a></h4>", s_date)
 
-        anime_date = dates[html[s_date:e_date]]
+        dg = []
+        for i in html[s_date:e_date]:
+            if i.isdigit():
+                dg.append(str(i))
+
+        dg = ''.join(dg)
+
+        anime_date = dates[dg]
         i = e_date
 
         res['url'] = url

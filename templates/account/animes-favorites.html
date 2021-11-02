@@ -51,7 +51,7 @@
                     <div class="anime-card-title" title="{{i.title}}" data-toggle="popover" data-trigger="hover"
                         >
                         <h3 ><a href="{% url 'anime' slug=i.url_anime %}" >{{i.title}}</a></h3>
-                        <h4><a a style="color:#969696;" href="{% url 'ht' name='anime-season' slug=i.url_date %}">{{i.anime_date.name}}</a></h4>
+                        <h4><a a style="color:#969696;" href="{% url 'ht' name='anime-season' slug=i.anime_date.name %}">{{i.anime_date.name}}</a></h4>
                                         
                 </div>
             </div>
